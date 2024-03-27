@@ -16,6 +16,7 @@
 		0F3F865C2BB473D3003858D8 /* AppliedUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3F865B2BB473D3003858D8 /* AppliedUITestsLaunchTests.swift */; };
 		0F3F86692BB478B7003858D8 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3F86682BB478B7003858D8 /* DataController.swift */; };
 		0F3F866C2BB478E8003858D8 /* JobApplication.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0F3F866A2BB478E8003858D8 /* JobApplication.xcdatamodeld */; };
+		0FDCB4D02BB47C7F00423576 /* AddJobApplicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDCB4CF2BB47C7F00423576 /* AddJobApplicationView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		0F3F865B2BB473D3003858D8 /* AppliedUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppliedUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		0F3F86682BB478B7003858D8 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		0F3F866B2BB478E8003858D8 /* JobApplication.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = JobApplication.xcdatamodel; sourceTree = "<group>"; };
+		0FDCB4CF2BB47C7F00423576 /* AddJobApplicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddJobApplicationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 			children = (
 				0F3F863E2BB473D2003858D8 /* AppliedApp.swift */,
 				0F3F86402BB473D2003858D8 /* ContentView.swift */,
+				0FDCB4CF2BB47C7F00423576 /* AddJobApplicationView.swift */,
 				0F3F86682BB478B7003858D8 /* DataController.swift */,
 				0F3F866A2BB478E8003858D8 /* JobApplication.xcdatamodeld */,
 				0F3F86422BB473D3003858D8 /* Assets.xcassets */,
@@ -264,6 +267,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F3F86412BB473D2003858D8 /* ContentView.swift in Sources */,
+				0FDCB4D02BB47C7F00423576 /* AddJobApplicationView.swift in Sources */,
 				0F3F86692BB478B7003858D8 /* DataController.swift in Sources */,
 				0F3F866C2BB478E8003858D8 /* JobApplication.xcdatamodeld in Sources */,
 				0F3F863F2BB473D2003858D8 /* AppliedApp.swift in Sources */,

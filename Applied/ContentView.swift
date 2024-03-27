@@ -2,20 +2,47 @@
 //  ContentView.swift
 //  Applied
 //
-//  Created by Negin Zahedi on 2024-03-27.
-//
 
 import SwiftUI
 
 struct ContentView: View {
+    
+    // MARK: - Properties
+    @Environment(\.managedObjectContext) var managedObjectContext
+    
+    @FetchRequest(sortDescriptors: []) var applications: FetchedResults<Application>
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack{
+            List{
+                ForEach(applications){ application in
+                    HStack{
+                        Text(application.jobTitle ?? "title")
+                    }
+                }
+                .onDelete(perform: { indexSet in
+                    for index in indexSet {
+                        let application = applications[index]
+                        // MARK: Core Data Operations
+                        self.managedObjectContext.delete(application)
+                        do {
+                            try managedObjectContext.save()
+                            print("perform delete")
+                        } catch {
+                            // handle the Core Data error
+                        }
+                    }
+                })
+            }
+            .navigationTitle("Applications")
+            .toolbar{
+                ToolbarItem {
+                    NavigationLink("Add") {
+                        AddJobApplicationView()
+                    }
+                }
+            }
         }
-        .padding()
     }
 }
 
