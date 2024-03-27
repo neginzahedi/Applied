@@ -12,6 +12,8 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
     @FetchRequest(sortDescriptors: [NSSortDescriptor(key: "dateApplied", ascending: false)]) var applications: FetchedResults<Application>
+    @State private var showConfirmation: Bool = false
+    @State private var toBeDeletedApplication: Application?
     
     // MARK: - Body
     
@@ -33,20 +35,17 @@ struct ContentView: View {
                                 .background(application.applicationStatus == "Not Selected" ? .red.opacity(0.8) : .yellow.opacity(0.8), in: Capsule())
                         }
                     }
-                }
-                .onDelete(perform: { indexSet in
-                    for index in indexSet {
-                        let application = applications[index]
-                        // MARK: Core Data Operations
-                        self.managedObjectContext.delete(application)
-                        do {
-                            try managedObjectContext.save()
-                            print("perform delete")
-                        } catch {
-                            // TODO: handle the Core Data error
+                    
+                    .swipeActions(allowsFullSwipe: false) {
+                        Button{
+                            toBeDeletedApplication = application
+                            showConfirmation.toggle()
+                        } label: {
+                            Label("Delete", systemImage: "trash")
+                                .tint(.red)
                         }
                     }
-                })
+                }
             }
             .navigationTitle("Applications")
             .toolbar{
@@ -55,6 +54,19 @@ struct ContentView: View {
                         AddJobApplicationView()
                     }
                 }
+            }
+            .confirmationDialog("Delete Application",
+                                isPresented: $showConfirmation,
+                                titleVisibility: .visible) {
+                Button(role: .destructive) {
+                    if let application = toBeDeletedApplication {
+                        deleteApplication(application: application)
+                    }
+                } label: {
+                    Text("Delete")
+                }
+            } message: {
+                Text("Are you sure you want to delete \(toBeDeletedApplication?.jobTitle ?? "this") application?")
             }
         }
     }
@@ -65,6 +77,17 @@ struct ContentView: View {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMMM dd, yyyy"
         return dateFormatter.string(from: date)
+    }
+    
+    private func deleteApplication(application: Application) {
+        managedObjectContext.delete(application)
+        do {
+            try managedObjectContext.save()
+            print("Deleted application")
+        } catch {
+            // Handle the Core Data error
+            print("Failed to delete application: \(error.localizedDescription)")
+        }
     }
 }
 
