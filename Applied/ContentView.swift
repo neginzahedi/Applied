@@ -8,16 +8,30 @@ import SwiftUI
 struct ContentView: View {
     
     // MARK: - Properties
+    
     @Environment(\.managedObjectContext) var managedObjectContext
     
-    @FetchRequest(sortDescriptors: []) var applications: FetchedResults<Application>
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(key: "dateApplied", ascending: false)]) var applications: FetchedResults<Application>
+    
+    // MARK: - Body
     
     var body: some View {
         NavigationStack{
             List{
                 ForEach(applications){ application in
-                    HStack{
-                        Text(application.jobTitle ?? "title")
+                    VStack(alignment: .leading){
+                        Text("\(application.jobTitle ?? "job title")")
+                        Text("\(application.companyName ?? "company's name")")
+                            .font(.footnote)
+                        HStack{
+                            Text(formatDateToMonthDayYear(application.dateApplied!))
+                                .font(.caption)
+                            Spacer()
+                            Text(application.applicationStatus ?? "status")
+                                .font(.caption)
+                                .padding(5)
+                                .background(application.applicationStatus == "Not Selected" ? .red.opacity(0.8) : .yellow.opacity(0.8), in: Capsule())
+                        }
                     }
                 }
                 .onDelete(perform: { indexSet in
@@ -29,7 +43,7 @@ struct ContentView: View {
                             try managedObjectContext.save()
                             print("perform delete")
                         } catch {
-                            // handle the Core Data error
+                            // TODO: handle the Core Data error
                         }
                     }
                 })
@@ -43,6 +57,14 @@ struct ContentView: View {
                 }
             }
         }
+    }
+    
+    // MARK: - Methods
+    
+    func formatDateToMonthDayYear(_ date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM dd, yyyy"
+        return dateFormatter.string(from: date)
     }
 }
 
