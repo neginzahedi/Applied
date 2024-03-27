@@ -14,6 +14,8 @@
 		0F3F86502BB473D3003858D8 /* AppliedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3F864F2BB473D3003858D8 /* AppliedTests.swift */; };
 		0F3F865A2BB473D3003858D8 /* AppliedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3F86592BB473D3003858D8 /* AppliedUITests.swift */; };
 		0F3F865C2BB473D3003858D8 /* AppliedUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3F865B2BB473D3003858D8 /* AppliedUITestsLaunchTests.swift */; };
+		0F3F86692BB478B7003858D8 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3F86682BB478B7003858D8 /* DataController.swift */; };
+		0F3F866C2BB478E8003858D8 /* JobApplication.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0F3F866A2BB478E8003858D8 /* JobApplication.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +46,8 @@
 		0F3F86552BB473D3003858D8 /* AppliedUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppliedUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F3F86592BB473D3003858D8 /* AppliedUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppliedUITests.swift; sourceTree = "<group>"; };
 		0F3F865B2BB473D3003858D8 /* AppliedUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppliedUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		0F3F86682BB478B7003858D8 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		0F3F866B2BB478E8003858D8 /* JobApplication.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = JobApplication.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +100,8 @@
 			children = (
 				0F3F863E2BB473D2003858D8 /* AppliedApp.swift */,
 				0F3F86402BB473D2003858D8 /* ContentView.swift */,
+				0F3F86682BB478B7003858D8 /* DataController.swift */,
+				0F3F866A2BB478E8003858D8 /* JobApplication.xcdatamodeld */,
 				0F3F86422BB473D3003858D8 /* Assets.xcassets */,
 				0F3F86442BB473D3003858D8 /* Preview Content */,
 			);
@@ -258,6 +264,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F3F86412BB473D2003858D8 /* ContentView.swift in Sources */,
+				0F3F86692BB478B7003858D8 /* DataController.swift in Sources */,
+				0F3F866C2BB478E8003858D8 /* JobApplication.xcdatamodeld in Sources */,
 				0F3F863F2BB473D2003858D8 /* AppliedApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -588,6 +596,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		0F3F866A2BB478E8003858D8 /* JobApplication.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				0F3F866B2BB478E8003858D8 /* JobApplication.xcdatamodel */,
+			);
+			currentVersion = 0F3F866B2BB478E8003858D8 /* JobApplication.xcdatamodel */;
+			path = JobApplication.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 0F3F86332BB473D2003858D8 /* Project object */;
 }
