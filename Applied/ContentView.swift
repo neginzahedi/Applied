@@ -21,21 +21,24 @@ struct ContentView: View {
         NavigationStack{
             List{
                 ForEach(applications){ application in
-                    VStack(alignment: .leading){
-                        Text("\(application.jobTitle ?? "job title")")
-                        Text("\(application.companyName ?? "company's name")")
-                            .font(.footnote)
-                        HStack{
-                            Text(formatDateToMonthDayYear(application.dateApplied!))
-                                .font(.caption)
-                            Spacer()
-                            Text(application.applicationStatus ?? "status")
-                                .font(.caption)
-                                .padding(5)
-                                .background(application.applicationStatus == "Not Selected" ? .red.opacity(0.8) : .yellow.opacity(0.8), in: Capsule())
+                    NavigationLink {
+                        ApplicationDetailsView(application: application)
+                    } label: {
+                        VStack(alignment: .leading){
+                            Text("\(application.jobTitle ?? "job title")")
+                            Text("\(application.companyName ?? "company's name")")
+                                .font(.footnote)
+                            HStack{
+                                Text(Utils.formatDateToMonthDayYear(application.dateApplied!))
+                                    .font(.caption)
+                                Spacer()
+                                Text(application.applicationStatus ?? "status")
+                                    .font(.caption)
+                                    .padding(5)
+                                    .background(application.applicationStatus == "Not Selected" ? .red.opacity(0.8) : .yellow.opacity(0.8), in: Capsule())
+                            }
                         }
                     }
-                    
                     .swipeActions(allowsFullSwipe: false) {
                         Button{
                             toBeDeletedApplication = application
@@ -47,6 +50,7 @@ struct ContentView: View {
                     }
                 }
             }
+            .listStyle(.plain)
             .navigationTitle("Applications")
             .toolbar{
                 ToolbarItem {
@@ -72,12 +76,6 @@ struct ContentView: View {
     }
     
     // MARK: - Methods
-    
-    func formatDateToMonthDayYear(_ date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMMM dd, yyyy"
-        return dateFormatter.string(from: date)
-    }
     
     private func deleteApplication(application: Application) {
         managedObjectContext.delete(application)
