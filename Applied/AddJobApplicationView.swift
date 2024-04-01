@@ -22,10 +22,6 @@ struct AddJobApplicationView: View {
     @State private var workMode: String = "Onsite"
     @State private var dateApplied: Date = Date()
     
-    private var employmentTypes = ["Full-time", "Part-time", "Seasonal", "Temporary", "Contract", "Internships", "Volunteers", "Other"]
-    
-    private var workModes = ["Onsite", "Remote", "Hybrid"]
-    private var applicationStatuses = ["Received", "Under Review", "Interview Scheduled", "Interviewed", "Pending Decision", "Offer Extended", "Offer Accepted", "Offer Declined", "Not Selected", "Withdrawn"]
     
     // MARK: - Body
     
@@ -36,19 +32,19 @@ struct AddJobApplicationView: View {
             TextField("City", text: $city)
             DatePicker("Date Applied", selection: $dateApplied, in: ...Date(), displayedComponents: [.date])
             Picker("Employment Type", selection: $employmentType) {
-                ForEach(employmentTypes, id: \.self) { type in
+                ForEach(Constants.employmentTypes, id: \.self) { type in
                     Text(type)
                         .tag(type)
                 }
             }
             Picker("Work Mode", selection: $workMode) {
-                ForEach(workModes, id: \.self) { type in
+                ForEach(Constants.workModes, id: \.self) { type in
                     Text(type)
                         .tag(type)
                 }
             }
             Picker("Application Status", selection: $applicationStatus) {
-                ForEach(applicationStatuses, id: \.self) { status in
+                ForEach(Constants.applicationStatuses, id: \.self) { status in
                     Text(status)
                         .tag(status)
                 }

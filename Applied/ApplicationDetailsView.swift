@@ -15,7 +15,6 @@ struct ApplicationDetailsView: View {
     
     var application: Application
     @State private var applicationStatus: String
-    private var applicationStatuses = ["Received", "Under Review", "Interview Scheduled", "Interviewed", "Pending Decision", "Offer Extended", "Offer Accepted", "Offer Declined", "Not Selected", "Withdrawn"]
     
     // MARK: - init
     init(application: Application){
@@ -45,7 +44,7 @@ struct ApplicationDetailsView: View {
             
             Section{
                 Picker("Current Status", selection: $applicationStatus) {
-                    ForEach(applicationStatuses, id: \.self) { status in
+                    ForEach(Constants.applicationStatuses, id: \.self) { status in
                         Text(status)
                             .tag(status)
                     }
