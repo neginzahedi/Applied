@@ -67,26 +67,36 @@ struct AddJobApplicationView: View {
     // MARK: - Methods
     
     private func saveApplication(){
-        let application = Application(context: managedObjectContext)
-        application.id = UUID()
-        application.jobTitle = jobTitle
-        application.companyName = companyName
-        application.city = city
-        application.employmentType = employmentType
-        application.workMode = workMode
-        application.dateApplied = dateApplied
-        application.applicationStatus = applicationStatus
-        
-        do {
-            try self.managedObjectContext.save()
-            print("Application saved!")
-            dismiss()
-        } catch {
-            print("whoops \(error.localizedDescription)")
+        DispatchQueue.global().async {
+            
+            let application = Application(context: managedObjectContext)
+            application.id = UUID()
+            application.jobTitle = jobTitle
+            application.companyName = companyName
+            application.city = city
+            application.employmentType = employmentType
+            application.workMode = workMode
+            application.dateApplied = dateApplied
+            application.applicationStatus = applicationStatus
+            
+            do {
+                try self.managedObjectContext.save()
+                print("Application saved!")
+                
+                DispatchQueue.main.async {
+                    dismiss()
+                }
+            } catch {
+                print("whoops \(error.localizedDescription)")
+            }
         }
+        
     }
 }
 
+// MARK: - AddJobApplicationView Preview
+#if DEBUG
 #Preview {
     AddJobApplicationView()
 }
+#endif
