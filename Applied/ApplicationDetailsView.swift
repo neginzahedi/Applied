@@ -14,21 +14,15 @@ struct ApplicationDetailsView: View {
     @Environment(\.dismiss) var dismiss
     
     var application: Application
-    @State private var applicationStatus: String
-    
-    // MARK: - init
-    init(application: Application){
-        self.application = application
-        self.applicationStatus = application.applicationStatus!
-    }
+    @State var applicationStatus: String
     
     // MARK: - Body
     
     var body: some View {
         List{
             Section{
-                Label(application.companyName ?? "Company's Name", systemImage: "building.2.fill")
-                Label(application.city ?? "Location", systemImage: "mappin")
+                Label(application.companyName ?? "", systemImage: "building.2.fill")
+                Label( application.city ?? "" , systemImage: "mappin")
                 Label((application.employmentType ?? "employment type") + " . " + (application.workMode ?? "workmode") , systemImage: "briefcase.fill")
                 Label(Utils.formatDateToMonthDayYear(application.dateApplied ?? Date()), systemImage: "calendar")
             } header: {
@@ -49,24 +43,21 @@ struct ApplicationDetailsView: View {
                             .tag(status)
                     }
                 }
+                .onChange(of: applicationStatus) {
+                    saveChanges()
+                }
             } header: {
                 Text("Application Status")
             }
             
             Section{
                 Button("Delete"){
-                    // TODO: fix warning
                     deleteApplication(application: application)
                 }
                 .tint(.red)
             }
         }
         .listStyle(.insetGrouped)
-        
-        .onDisappear(){
-            // TODO: fix warning
-            saveChanges()
-        }
         .navigationTitle(application.jobTitle ?? "Job title")
     }
     
@@ -76,6 +67,7 @@ struct ApplicationDetailsView: View {
         application.applicationStatus = applicationStatus
         do {
             try managedObjectContext.save()
+            print("Application status updated.")
         } catch {
             let nsError = error as NSError
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
@@ -86,7 +78,7 @@ struct ApplicationDetailsView: View {
         managedObjectContext.delete(application)
         do {
             try managedObjectContext.save()
-            print("Deleted application")
+            print("Application deleted.")
             dismiss()
         } catch {
             // Handle the Core Data error
