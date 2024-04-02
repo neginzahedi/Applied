@@ -19,37 +19,37 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack{
-            List{
-                ForEach(applications){ application in
-                    NavigationLink {
-                        ApplicationDetailsView(application: application)
-                    } label: {
-                        VStack(alignment: .leading){
-                            Text("\(application.jobTitle ?? "job title")")
-                            Text("\(application.companyName ?? "company's name")")
-                                .font(.footnote)
-                            HStack{
-                                Text(Utils.formatDateToMonthDayYear(application.dateApplied!))
-                                    .font(.caption)
-                                Spacer()
-                                Text(application.applicationStatus ?? "status")
-                                    .font(.caption)
-                                    .padding(5)
-                                    .background(application.applicationStatus == "Not Selected" ? .red.opacity(0.8) : .yellow.opacity(0.8), in: Capsule())
-                            }
-                        }
-                    }
-                    .swipeActions(allowsFullSwipe: false) {
-                        Button{
-                            toBeDeletedApplication = application
-                            showConfirmation.toggle()
-                        } label: {
-                            Label("Delete", systemImage: "trash")
-                                .tint(.red)
+            List(applications){ application in
+                NavigationLink(value: application) {
+                    VStack(alignment: .leading){
+                        Text("\(application.jobTitle ?? "job title")")
+                        Text("\(application.companyName ?? "company's name")")
+                            .font(.footnote)
+                        HStack{
+                            Text(Utils.formatDateToMonthDayYear(application.dateApplied!))
+                                .font(.caption)
+                            Spacer()
+                            Text(application.applicationStatus ?? "status")
+                                .font(.caption)
+                                .padding(5)
+                                .background(application.applicationStatus == "Not Selected" ? .red.opacity(0.8) : .yellow.opacity(0.8), in: Capsule())
                         }
                     }
                 }
+                .swipeActions(allowsFullSwipe: false) {
+                    Button{
+                        toBeDeletedApplication = application
+                        showConfirmation.toggle()
+                    } label: {
+                        Label("Delete", systemImage: "trash")
+                            .tint(.red)
+                    }
+                }
             }
+            .navigationDestination(for: Application.self) { application in
+                ApplicationDetailsView(application: application, applicationStatus: application.applicationStatus ?? "")
+            }
+            
             .listStyle(.plain)
             .navigationTitle("Applications")
             .toolbar{
