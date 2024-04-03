@@ -15,28 +15,29 @@ struct ApplicationDetailsView: View {
     
     var application: Application
     @State var applicationStatus: String
+    @State private var showConfirmation: Bool = false
     
     // MARK: - Body
     
     var body: some View {
         List{
-            Section{
-                Label(application.companyName ?? "", systemImage: "building.2.fill")
-                Label( application.city ?? "" , systemImage: "mappin")
-                Label((application.employmentType ?? "employment type") + " . " + (application.workMode ?? "workmode") , systemImage: "briefcase.fill")
+            Section {
+                Label(application.companyName!.isEmpty ? "N/A" : application.companyName!, systemImage: "building.2.fill")
+                Label(application.city!.isEmpty ? "N/A" : application.city! , systemImage: "mappin")
+                Label(application.employmentType! + " . " + application.workMode! , systemImage: "briefcase.fill")
                 Label(Utils.formatDateToMonthDayYear(application.dateApplied ?? Date()), systemImage: "calendar")
             } header: {
                 Text("Job information")
             }
             
-            Section{
-                Text("vfjhvbsljxdn;lwnmx;lnwklndxklwbxdjkwbxjkw kewnboibew ceiwnixoew cwenhpiocwhe cpekwopckwe lckwbnc ")
+            Section {
+                Text(application.note!.isEmpty ? "N/A" : application.note!)
                 
             } header: {
                 Text("Note")
             }
             
-            Section{
+            Section {
                 Picker("Current Status", selection: $applicationStatus) {
                     ForEach(Constants.applicationStatuses, id: \.self) { status in
                         Text(status)
@@ -50,7 +51,7 @@ struct ApplicationDetailsView: View {
                 Text("Application Status")
             }
             
-            Section{
+            Section {
                 Button("Delete"){
                     deleteApplication(application: application)
                 }
@@ -58,6 +59,19 @@ struct ApplicationDetailsView: View {
             }
         }
         .listStyle(.insetGrouped)
+        
+        .confirmationDialog("Delete Application",
+                            isPresented: $showConfirmation,
+                            titleVisibility: .visible) {
+            Button(role: .destructive) {
+                deleteApplication(application: application)
+            } label: {
+                Text("Delete")
+            }
+        } message: {
+            Text("Are you sure you want to delete \(application.jobTitle ?? "this") application?")
+        }
+        
         .navigationTitle(application.jobTitle ?? "Job title")
     }
     
