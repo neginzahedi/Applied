@@ -20,6 +20,7 @@ struct AddJobApplicationView: View {
     @State private var employmentType: String = "Full-time"
     @State private var applicationStatus: String = "Received"
     @State private var workMode: String = "Onsite"
+    @State private var note: String = ""
     @State private var dateApplied: Date = Date()
     
     
@@ -27,27 +28,48 @@ struct AddJobApplicationView: View {
     
     var body: some View {
         Form{
-            TextField("Title", text: $jobTitle)
-            TextField("Company's name", text: $companyName)
-            TextField("City", text: $city)
-            DatePicker("Date Applied", selection: $dateApplied, in: ...Date(), displayedComponents: [.date])
-            Picker("Employment Type", selection: $employmentType) {
-                ForEach(Constants.employmentTypes, id: \.self) { type in
-                    Text(type)
-                        .tag(type)
+            Section{
+                TextField("Title", text: $jobTitle)
+                TextField("Company's name", text: $companyName)
+                TextField("City", text: $city)
+                Picker("Employment Type", selection: $employmentType) {
+                    ForEach(Constants.employmentTypes, id: \.self) { type in
+                        Text(type)
+                            .tag(type)
+                    }
+                }
+                Picker("Work Mode", selection: $workMode) {
+                    ForEach(Constants.workModes, id: \.self) { type in
+                        Text(type)
+                            .tag(type)
+                    }
+                }
+                DatePicker("Date Applied", selection: $dateApplied, in: ...Date(), displayedComponents: [.date])
+                
+            }
+            Section{
+                Picker("Application Status", selection: $applicationStatus) {
+                    ForEach(Constants.applicationStatuses, id: \.self) { status in
+                        Text(status)
+                            .tag(status)
+                    }
                 }
             }
-            Picker("Work Mode", selection: $workMode) {
-                ForEach(Constants.workModes, id: \.self) { type in
-                    Text(type)
-                        .tag(type)
+            
+            Section{
+                ZStack{
+                    TextEditor(text: $note)
+                    if note.isEmpty {
+                        HStack{
+                            Text("Add your note here...")
+                                .foregroundStyle(.secondary)
+                            Spacer()
+                        }
+                    }
                 }
-            }
-            Picker("Application Status", selection: $applicationStatus) {
-                ForEach(Constants.applicationStatuses, id: \.self) { status in
-                    Text(status)
-                        .tag(status)
-                }
+                
+            } header: {
+                Text("Note")
             }
         }
         .autocorrectionDisabled()
@@ -78,6 +100,7 @@ struct AddJobApplicationView: View {
             application.workMode = workMode
             application.dateApplied = dateApplied
             application.applicationStatus = applicationStatus
+            application.note = note
             
             do {
                 try self.managedObjectContext.save()
