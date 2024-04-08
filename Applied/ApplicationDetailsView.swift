@@ -22,8 +22,8 @@ struct ApplicationDetailsView: View {
     var body: some View {
         List{
             Section {
-                Label(application.companyName ?? "Company", systemImage: "building.2.fill")
-                Label(application.city ?? "City" , systemImage: "mappin")
+                Label(application.company ?? "Company", systemImage: "building.2.fill")
+                Label(application.location ?? "Location" , systemImage: "mappin")
                 Label((application.employmentType ?? "Employment Type") + " . " + (application.workMode ?? "Work Mode") , systemImage: "briefcase.fill")
                 Label(Utils.formatDateToMonthDayYear(application.dateApplied ?? Date()), systemImage: "calendar")
             } header: {

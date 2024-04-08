@@ -13,8 +13,8 @@ struct AddJobApplicationView: View {
     @Environment(\.dismiss) var dismiss
     
     @State private var jobTitle: String = ""
-    @State private var companyName: String = ""
-    @State private var city: String = ""
+    @State private var company: String = ""
+    @State private var location: String = ""
     @State private var employmentType: String = "Full-time"
     @State private var applicationStatus: String = "Received"
     @State private var workMode: String = "Onsite"
@@ -27,8 +27,8 @@ struct AddJobApplicationView: View {
         Form {
             Section {
                 TextField("Title", text: $jobTitle)
-                TextField("Company's name", text: $companyName)
-                TextField("City", text: $city)
+                TextField("Company", text: $company)
+                TextField("Location", text: $location)
                 Picker("Employment Type", selection: $employmentType) {
                     ForEach(Constants.employmentTypes, id: \.self) { type in
                         Text(type).tag(type)
@@ -65,7 +65,7 @@ struct AddJobApplicationView: View {
                 Button("Save") {
                     saveApplication()
                 }
-                .disabled(jobTitle.isEmpty || companyName.isEmpty)
+                .disabled(jobTitle.isEmpty || company.isEmpty)
             }
         }
     }
@@ -79,8 +79,8 @@ struct AddJobApplicationView: View {
             let application = Application(context: managedObjectContext)
             application.id = UUID()
             application.jobTitle = jobTitle
-            application.companyName = companyName
-            application.city = city
+            application.company = company
+            application.location = location
             application.employmentType = employmentType
             application.workMode = workMode
             application.dateApplied = dateApplied

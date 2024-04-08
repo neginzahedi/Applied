@@ -96,7 +96,7 @@ struct ApplicationRowView: View {
     var body: some View {
         VStack(alignment: .leading){
             Text("\(application.jobTitle ?? "job title")")
-            Text("\(application.companyName ?? "company's name")")
+            Text("\(application.company ?? "company's name")")
                 .font(.footnote)
             HStack{
                 Text(Utils.formatDateToMonthDayYear(application.dateApplied!))
