@@ -2,8 +2,6 @@
 //  AddJobApplicationView.swift
 //  Applied
 //
-//  Created by Negin Zahedi on 2024-03-27.
-//
 
 import SwiftUI
 
@@ -23,51 +21,37 @@ struct AddJobApplicationView: View {
     @State private var note: String = ""
     @State private var dateApplied: Date = Date()
     
-    
     // MARK: - Body
     
     var body: some View {
-        Form{
-            Section{
+        Form {
+            Section {
                 TextField("Title", text: $jobTitle)
                 TextField("Company's name", text: $companyName)
                 TextField("City", text: $city)
                 Picker("Employment Type", selection: $employmentType) {
                     ForEach(Constants.employmentTypes, id: \.self) { type in
-                        Text(type)
-                            .tag(type)
+                        Text(type).tag(type)
                     }
                 }
                 Picker("Work Mode", selection: $workMode) {
                     ForEach(Constants.workModes, id: \.self) { type in
-                        Text(type)
-                            .tag(type)
+                        Text(type).tag(type)
                     }
                 }
                 DatePicker("Date Applied", selection: $dateApplied, in: ...Date(), displayedComponents: [.date])
                 
             }
-            Section{
+            Section {
                 Picker("Application Status", selection: $applicationStatus) {
                     ForEach(Constants.applicationStatuses, id: \.self) { status in
-                        Text(status)
-                            .tag(status)
+                        Text(status).tag(status)
                     }
                 }
             }
             
-            Section{
-                ZStack{
-                    TextEditor(text: $note)
-                    if note.isEmpty {
-                        HStack{
-                            Text("Add your note here...")
-                                .foregroundStyle(.secondary)
-                            Spacer()
-                        }
-                    }
-                }
-                
+            Section {
+                CharacterLimitedTextEditor(text: $note, characterLimit: 255)
             } header: {
                 Text("Note")
             }
@@ -88,7 +72,8 @@ struct AddJobApplicationView: View {
     
     // MARK: - Methods
     
-    private func saveApplication(){
+    private func saveApplication() {
+        
         DispatchQueue.global().async {
             
             let application = Application(context: managedObjectContext)
@@ -113,11 +98,11 @@ struct AddJobApplicationView: View {
                 print("whoops \(error.localizedDescription)")
             }
         }
-        
     }
 }
 
 // MARK: - AddJobApplicationView Preview
+
 #if DEBUG
 #Preview {
     AddJobApplicationView()

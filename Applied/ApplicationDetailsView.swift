@@ -22,16 +22,16 @@ struct ApplicationDetailsView: View {
     var body: some View {
         List{
             Section {
-                Label(application.companyName!.isEmpty ? "N/A" : application.companyName!, systemImage: "building.2.fill")
-                Label(application.city!.isEmpty ? "N/A" : application.city! , systemImage: "mappin")
-                Label(application.employmentType! + " . " + application.workMode! , systemImage: "briefcase.fill")
+                Label(application.companyName ?? "Company", systemImage: "building.2.fill")
+                Label(application.city ?? "City" , systemImage: "mappin")
+                Label((application.employmentType ?? "Employment Type") + " . " + (application.workMode ?? "Work Mode") , systemImage: "briefcase.fill")
                 Label(Utils.formatDateToMonthDayYear(application.dateApplied ?? Date()), systemImage: "calendar")
             } header: {
                 Text("Job information")
             }
             
             Section {
-                Text(application.note!.isEmpty ? "N/A" : application.note!)
+                Text(application.note ?? "Note")
                 
             } header: {
                 Text("Note")
@@ -53,7 +53,7 @@ struct ApplicationDetailsView: View {
             
             Section {
                 Button("Delete"){
-                    deleteApplication(application: application)
+                    showConfirmation.toggle()
                 }
                 .tint(.red)
             }
