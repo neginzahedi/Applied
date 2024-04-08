@@ -2,8 +2,6 @@
 //  Utils.swift
 //  Applied
 //
-//  Created by Negin Zahedi on 2024-03-27.
-//
 
 import Foundation
 
