@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0F2CC9D82BC072B10036F5B8 /* CharacterLimitedTextEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2CC9D72BC072B10036F5B8 /* CharacterLimitedTextEditor.swift */; };
+		0F33D21F2BC4A7810017D072 /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F33D21E2BC4A7810017D072 /* IntroView.swift */; };
 		0F3F863F2BB473D2003858D8 /* AppliedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3F863E2BB473D2003858D8 /* AppliedApp.swift */; };
 		0F3F86412BB473D2003858D8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3F86402BB473D2003858D8 /* ContentView.swift */; };
 		0F3F86432BB473D3003858D8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F3F86422BB473D3003858D8 /* Assets.xcassets */; };
@@ -17,6 +18,7 @@
 		0F3F865C2BB473D3003858D8 /* AppliedUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3F865B2BB473D3003858D8 /* AppliedUITestsLaunchTests.swift */; };
 		0F3F86692BB478B7003858D8 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3F86682BB478B7003858D8 /* DataController.swift */; };
 		0F3F866C2BB478E8003858D8 /* JobApplication.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0F3F866A2BB478E8003858D8 /* JobApplication.xcdatamodeld */; };
+		0F41A1E32BC6FC65007FD327 /* ApplicationsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F41A1E22BC6FC65007FD327 /* ApplicationsListView.swift */; };
 		0F7EEB612BBB4F2B0061A9C1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7EEB602BBB4F2B0061A9C1 /* Constants.swift */; };
 		0FDCB4D02BB47C7F00423576 /* AddJobApplicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDCB4CF2BB47C7F00423576 /* AddJobApplicationView.swift */; };
 		0FDCB4D22BB4C8C900423576 /* ApplicationDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDCB4D12BB4C8C900423576 /* ApplicationDetailsView.swift */; };
@@ -42,6 +44,7 @@
 
 /* Begin PBXFileReference section */
 		0F2CC9D72BC072B10036F5B8 /* CharacterLimitedTextEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterLimitedTextEditor.swift; sourceTree = "<group>"; };
+		0F33D21E2BC4A7810017D072 /* IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroView.swift; sourceTree = "<group>"; };
 		0F3F863B2BB473D2003858D8 /* Applied.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Applied.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F3F863E2BB473D2003858D8 /* AppliedApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppliedApp.swift; sourceTree = "<group>"; };
 		0F3F86402BB473D2003858D8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -54,6 +57,7 @@
 		0F3F865B2BB473D3003858D8 /* AppliedUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppliedUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		0F3F86682BB478B7003858D8 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		0F3F866B2BB478E8003858D8 /* JobApplication.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = JobApplication.xcdatamodel; sourceTree = "<group>"; };
+		0F41A1E22BC6FC65007FD327 /* ApplicationsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationsListView.swift; sourceTree = "<group>"; };
 		0F7EEB602BBB4F2B0061A9C1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0FDCB4CF2BB47C7F00423576 /* AddJobApplicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddJobApplicationView.swift; sourceTree = "<group>"; };
 		0FDCB4D12BB4C8C900423576 /* ApplicationDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationDetailsView.swift; sourceTree = "<group>"; };
@@ -109,7 +113,9 @@
 			isa = PBXGroup;
 			children = (
 				0F3F863E2BB473D2003858D8 /* AppliedApp.swift */,
+				0F33D21E2BC4A7810017D072 /* IntroView.swift */,
 				0F3F86402BB473D2003858D8 /* ContentView.swift */,
+				0F41A1E22BC6FC65007FD327 /* ApplicationsListView.swift */,
 				0FDCB4CF2BB47C7F00423576 /* AddJobApplicationView.swift */,
 				0FDCB4D12BB4C8C900423576 /* ApplicationDetailsView.swift */,
 				0F2CC9D72BC072B10036F5B8 /* CharacterLimitedTextEditor.swift */,
@@ -284,7 +290,9 @@
 				0F3F86692BB478B7003858D8 /* DataController.swift in Sources */,
 				0FDCB4D42BB4CD0300423576 /* Utils.swift in Sources */,
 				0F3F866C2BB478E8003858D8 /* JobApplication.xcdatamodeld in Sources */,
+				0F41A1E32BC6FC65007FD327 /* ApplicationsListView.swift in Sources */,
 				0F3F863F2BB473D2003858D8 /* AppliedApp.swift in Sources */,
+				0F33D21F2BC4A7810017D072 /* IntroView.swift in Sources */,
 				0FDCB4D22BB4C8C900423576 /* ApplicationDetailsView.swift in Sources */,
 				0F7EEB612BBB4F2B0061A9C1 /* Constants.swift in Sources */,
 			);
