@@ -19,19 +19,46 @@ struct ApplicationsListView: View {
     
     var body: some View {
         NavigationStack{
-            List(applications){ application in
-                NavigationLink(value: application) {
-                    ApplicationRowView(application: application)
+            VStack {
+                if applications.isEmpty{
+                    VStack{
+                        Spacer()
+                        Image("applications")
+                            .resizable()
+                            .scaledToFit()
+                            .padding(50)
+                        Text("Get started by adding your first job application! Tap the 'Add' button to begin.")
+                            .multilineTextAlignment(.center)
+                            .fontDesign(.rounded)
+                            .foregroundStyle(.secondary)
+                            .padding()
+                        Spacer()
+                    }
+                    .padding()
+                } else {
+                    List(applications){ application in
+                        NavigationLink(value: application) {
+                            ApplicationRowView(application: application)
+                        }
+                        .swipeActions(allowsFullSwipe: false) {
+                            deleteApplicationButton(for: application)
+                        }
+                    }
+                    .navigationDestination(for: Application.self) { application in
+                        ApplicationDetailsView(application: application, applicationStatus: application.applicationStatus ?? "")
+                    }
+                    .confirmationDialog("Delete Application",
+                                        isPresented: $showConfirmation,
+                                        titleVisibility: .visible) {
+                        deleteConfirmationDialogButton()
+                    } message: {
+                        Text("Are you sure you want to delete \(toBeDeletedApplication?.jobTitle ?? "this") application?")
+                    }
                 }
-                .swipeActions(allowsFullSwipe: false) {
-                    deleteApplicationButton(for: application)
-                }
-            }
-            .navigationDestination(for: Application.self) { application in
-                ApplicationDetailsView(application: application, applicationStatus: application.applicationStatus ?? "")
             }
             
             .navigationTitle("Applications")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar{
                 ToolbarItem {
                     NavigationLink("Add") {
@@ -39,13 +66,7 @@ struct ApplicationsListView: View {
                     }
                 }
             }
-            .confirmationDialog("Delete Application",
-                                isPresented: $showConfirmation,
-                                titleVisibility: .visible) {
-                deleteConfirmationDialogButton()
-            } message: {
-                Text("Are you sure you want to delete \(toBeDeletedApplication?.jobTitle ?? "this") application?")
-            }
+            
         }
     }
     
