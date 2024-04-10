@@ -15,6 +15,9 @@ struct ApplicationsListView: View {
     @State private var showConfirmation: Bool = false
     @State private var toBeDeletedApplication: Application?
     
+    @State private var selectedStatus: String = "Received"
+    private let applicationStatus = ["All", "Received", "Interview Scheduled", "Interviewed", "Pending Decision", "Offer Accepted", "Not Selected", "Withdrawn"]
+    
     // MARK: - Body
     
     var body: some View {
@@ -36,23 +39,52 @@ struct ApplicationsListView: View {
                     }
                     .padding()
                 } else {
-                    List(applications){ application in
-                        NavigationLink(value: application) {
-                            ApplicationRowView(application: application)
+                    VStack{
+                        ScrollView (.horizontal, showsIndicators: false){
+                            HStack{
+                                ForEach(applicationStatus, id: \.self) { status in
+                                    StatusView(status: status, isSelected: status == selectedStatus)
+                                        .onTapGesture {
+                                            selectedStatus = status
+                                        }
+                                }
+                            }
+                            .padding(.horizontal, 20)
+                            
                         }
-                        .swipeActions(allowsFullSwipe: false) {
-                            deleteApplicationButton(for: application)
+                        List{
+                            if selectedStatus == "All" {
+                                ForEach(applications) { application in
+                                    NavigationLink(value: application) {
+                                        ApplicationRowView(application: application)
+                                    }
+                                    .swipeActions(allowsFullSwipe: false) {
+                                        deleteApplicationButton(for: application)
+                                    }
+                                }
+                            } else{
+                                let filteredApplications = applications.filter {$0.applicationStatus == selectedStatus}
+                                ForEach(filteredApplications) { application in
+                                    NavigationLink(value: application) {
+                                        ApplicationRowView(application: application)
+                                    }
+                                    .swipeActions(allowsFullSwipe: false) {
+                                        deleteApplicationButton(for: application)
+                                    }
+                                }
+                            }
                         }
-                    }
-                    .navigationDestination(for: Application.self) { application in
-                        ApplicationDetailsView(application: application, applicationStatus: application.applicationStatus ?? "")
-                    }
-                    .confirmationDialog("Delete Application",
-                                        isPresented: $showConfirmation,
-                                        titleVisibility: .visible) {
-                        deleteConfirmationDialogButton()
-                    } message: {
-                        Text("Are you sure you want to delete \(toBeDeletedApplication?.jobTitle ?? "this") application?")
+                        .listStyle(.plain)
+                        .navigationDestination(for: Application.self) { application in
+                            ApplicationDetailsView(application: application, applicationStatus: application.applicationStatus ?? "")
+                        }
+                        .confirmationDialog("Delete Application",
+                                            isPresented: $showConfirmation,
+                                            titleVisibility: .visible) {
+                            deleteConfirmationDialogButton()
+                        } message: {
+                            Text("Are you sure you want to delete \(toBeDeletedApplication?.jobTitle ?? "this") application?")
+                        }
                     }
                 }
             }
@@ -66,7 +98,7 @@ struct ApplicationsListView: View {
                     }
                 }
             }
-            
+            .fontDesign(.rounded)
         }
     }
     
@@ -128,6 +160,28 @@ struct ApplicationRowView: View {
                     .background(application.applicationStatus == "Not Selected" ? .red.opacity(0.8) : .yellow.opacity(0.8), in: Capsule())
             }
         }
+    }
+}
+
+// MARK: - Status View
+
+struct StatusView: View {
+    let status: String
+    let isSelected: Bool
+    
+    var body: some View {
+        Text(status)
+            .foregroundColor(.black)
+            .padding(8)
+            .background(isSelected ?                                         Color(red: 255/255, green: 206/255, blue: 0/255)
+                        : Color.white)
+            .cornerRadius(5)
+            .overlay(
+                RoundedRectangle(cornerRadius: 5)
+                    .stroke(Color.black, lineWidth: 1)
+            )
+            .font(.system(.caption, design: .rounded))
+            .padding(2)
     }
 }
 
