@@ -26,8 +26,8 @@ struct AddJobApplicationView: View {
     var body: some View {
         Form {
             Section {
-                TextField("Title", text: $jobTitle)
-                TextField("Company", text: $company)
+                TextField("Title (required)", text: $jobTitle)
+                TextField("Company (required)", text: $company)
                 TextField("Location", text: $location)
                 Picker("Employment Type", selection: $employmentType) {
                     ForEach(Constants.employmentTypes, id: \.self) { type in
