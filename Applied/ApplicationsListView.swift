@@ -30,7 +30,7 @@ struct ApplicationsListView: View {
                             .resizable()
                             .scaledToFit()
                             .padding(50)
-                        Text("Get started by adding your first job application! Tap the 'Add' button to begin.")
+                        Text("Get started by adding your first job application! Tap the \(Image(systemName: "pencil.and.list.clipboard")) button to begin.")
                             .multilineTextAlignment(.center)
                             .fontDesign(.rounded)
                             .foregroundStyle(.secondary)
@@ -81,11 +81,14 @@ struct ApplicationsListView: View {
             }
             
             .navigationTitle("Applications")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar{
                 ToolbarItem {
-                    NavigationLink("Add") {
+                    NavigationLink {
                         AddJobApplicationView()
-                    }
+                    } label: {
+                        Image(systemName: "pencil.and.list.clipboard")
+                    }.tint(.primary)
                 }
             }
             .fontDesign(.rounded)
