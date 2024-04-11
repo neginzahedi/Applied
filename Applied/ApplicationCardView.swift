@@ -62,9 +62,11 @@ struct ApplicationCardView: View {
             .frame(minWidth: 100)
             .font(.caption)
             .padding(10)
-            .background(application.applicationStatus == "Not Selected" ? Color.red.opacity(0.8) : Color.yellow.opacity(0.8), in: RoundedRectangle(cornerRadius: 10))
+            .background(application.applicationStatus == "Not Selected" ? Color(.customPink) : application.applicationStatus == "Offer Accepted" ? Color(.customBlue): Color(.customYellow), in: RoundedRectangle(cornerRadius: 10))
     }
 }
+// 222,105,107
+
 
 
 //#Preview {

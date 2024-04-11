@@ -43,7 +43,7 @@ struct IntroView: View {
             }, label: {
                 Text("Get Started")
                     .frame(width: 200, height: 50, alignment: .center)
-                    .background(Color(red: 255/255, green: 206/255, blue: 0/255))
+                    .background(Color(.customYellow))
                     .clipShape(Capsule())
                     .foregroundColor(.black)
                     .font(.headline)

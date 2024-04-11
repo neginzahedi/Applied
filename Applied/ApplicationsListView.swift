@@ -79,7 +79,6 @@ struct ApplicationsListView: View {
             .navigationDestination(for: Application.self) { application in
                 ApplicationDetailsView(application: application, applicationStatus: application.applicationStatus ?? "")
             }
-            
             .navigationTitle("Applications")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar{
@@ -139,7 +138,7 @@ struct StatusView: View {
         Text(status)
             .foregroundColor(.black)
             .padding(8)
-            .background(isSelected ?                                         Color(red: 255/255, green: 206/255, blue: 0/255)
+            .background(isSelected ?                                         Color(.customYellow)
                         : Color.white)
             .font(.system(.caption, design: .rounded))
             .clipShape(Capsule())
