@@ -3,7 +3,7 @@
     <entity name="Application" representedClassName="Application" syncable="YES" codeGenerationType="class">
         <attribute name="applicationStatus" optional="YES" attributeType="String" defaultValueString=""/>
         <attribute name="company" optional="YES" attributeType="String" defaultValueString=""/>
-        <attribute name="dateApplied" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="dateApplied" optional="YES" attributeType="Date" defaultDateTimeInterval="734483100" usesScalarValueType="NO"/>
         <attribute name="employmentType" optional="YES" attributeType="String" defaultValueString=""/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="jobTitle" optional="YES" attributeType="String" defaultValueString=""/>

@@ -15,7 +15,7 @@ struct ApplicationsListView: View {
     @State private var showConfirmation: Bool = false
     @State private var toBeDeletedApplication: Application?
     
-    @State private var selectedStatus: String = "Received"
+    @State private var selectedStatus: String = "All"
     private let applicationStatus = ["All", "Received", "Interview Scheduled", "Interviewed", "Pending Decision", "Offer Accepted", "Not Selected", "Withdrawn"]
     
     // MARK: - Body
@@ -50,47 +50,37 @@ struct ApplicationsListView: View {
                                 }
                             }
                             .padding(.horizontal, 20)
-                            
+                            .padding(.top,20)
                         }
-                        List{
-                            if selectedStatus == "All" {
-                                ForEach(applications) { application in
-                                    NavigationLink(value: application) {
-                                        ApplicationRowView(application: application)
+                        ScrollView(.vertical, showsIndicators: false) {
+                            VStack {
+                                if selectedStatus == "All" {
+                                    ForEach(applications) { application in
+                                        NavigationLink(value: application) {
+                                            ApplicationCardView(application: application)
+                                        }
                                     }
-                                    .swipeActions(allowsFullSwipe: false) {
-                                        deleteApplicationButton(for: application)
+                                } else{
+                                    let filteredApplications = applications.filter {$0.applicationStatus == selectedStatus}
+                                    ForEach(filteredApplications) { application in
+                                        NavigationLink(value: application) {
+                                            ApplicationCardView(application: application)
+                                        }
+                                        
                                     }
-                                }
-                            } else{
-                                let filteredApplications = applications.filter {$0.applicationStatus == selectedStatus}
-                                ForEach(filteredApplications) { application in
-                                    NavigationLink(value: application) {
-                                        ApplicationRowView(application: application)
-                                    }
-                                    .swipeActions(allowsFullSwipe: false) {
-                                        deleteApplicationButton(for: application)
-                                    }
+                                    
                                 }
                             }
                         }
-                        .listStyle(.plain)
-                        .navigationDestination(for: Application.self) { application in
-                            ApplicationDetailsView(application: application, applicationStatus: application.applicationStatus ?? "")
-                        }
-                        .confirmationDialog("Delete Application",
-                                            isPresented: $showConfirmation,
-                                            titleVisibility: .visible) {
-                            deleteConfirmationDialogButton()
-                        } message: {
-                            Text("Are you sure you want to delete \(toBeDeletedApplication?.jobTitle ?? "this") application?")
-                        }
                     }
+                    
                 }
+            }
+            .navigationDestination(for: Application.self) { application in
+                ApplicationDetailsView(application: application, applicationStatus: application.applicationStatus ?? "")
             }
             
             .navigationTitle("Applications")
-            .navigationBarTitleDisplayMode(.inline)
             .toolbar{
                 ToolbarItem {
                     NavigationLink("Add") {
@@ -136,33 +126,6 @@ struct ApplicationsListView: View {
     }
 }
 
-// MARK: - Application Row View
-
-struct ApplicationRowView: View {
-    // MARK: - Properties
-    
-    let application: Application
-    
-    // MARK: - Body
-    
-    var body: some View {
-        VStack(alignment: .leading){
-            Text("\(application.jobTitle ?? "job title")")
-            Text("\(application.company ?? "company's name")")
-                .font(.footnote)
-            HStack{
-                Text(Utils.formatDateToMonthDayYear(application.dateApplied!))
-                    .font(.caption)
-                Spacer()
-                Text(application.applicationStatus ?? "status")
-                    .font(.caption)
-                    .padding(5)
-                    .background(application.applicationStatus == "Not Selected" ? .red.opacity(0.8) : .yellow.opacity(0.8), in: Capsule())
-            }
-        }
-    }
-}
-
 // MARK: - Status View
 
 struct StatusView: View {
@@ -175,12 +138,12 @@ struct StatusView: View {
             .padding(8)
             .background(isSelected ?                                         Color(red: 255/255, green: 206/255, blue: 0/255)
                         : Color.white)
-            .cornerRadius(5)
-            .overlay(
-                RoundedRectangle(cornerRadius: 5)
-                    .stroke(Color.black, lineWidth: 1)
-            )
             .font(.system(.caption, design: .rounded))
+            .clipShape(Capsule())
+            .overlay(
+                Capsule()
+                    .stroke(Color.black, lineWidth: 1) // Adjust the color and line width as needed
+            )
             .padding(2)
     }
 }
