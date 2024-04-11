@@ -80,11 +80,10 @@ struct ApplicationDetailsView: View {
     private func saveChanges() {
         application.applicationStatus = applicationStatus
         do {
-            try managedObjectContext.save()
+            try self.managedObjectContext.save()
             print("Application status updated.")
         } catch {
-            let nsError = error as NSError
-            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            fatalError("Error updating status: \(error.localizedDescription)")
         }
     }
     
