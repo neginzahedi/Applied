@@ -22,7 +22,7 @@ struct ApplicationsListView: View {
     
     var body: some View {
         NavigationStack{
-            VStack {
+            VStack{
                 if applications.isEmpty{
                     VStack{
                         Spacer()
@@ -39,7 +39,7 @@ struct ApplicationsListView: View {
                     }
                     .padding()
                 } else {
-                    VStack{
+                    VStack(spacing: 25){
                         ScrollView (.horizontal, showsIndicators: false){
                             HStack{
                                 ForEach(applicationStatus, id: \.self) { status in
@@ -53,7 +53,7 @@ struct ApplicationsListView: View {
                             .padding(.top,20)
                         }
                         ScrollView(.vertical, showsIndicators: false) {
-                            VStack {
+                            VStack(spacing: 15) {
                                 if selectedStatus == "All" {
                                     ForEach(applications) { application in
                                         NavigationLink(value: application) {
@@ -77,7 +77,7 @@ struct ApplicationsListView: View {
                 }
             }
             .navigationDestination(for: Application.self) { application in
-                ApplicationDetailsView(application: application, applicationStatus: application.applicationStatus ?? "")
+                ApplicationDetailsView(application: application, applicationStatus: application.applicationStatus ?? "Received")
             }
             .navigationTitle("Applications")
             .navigationBarTitleDisplayMode(.inline)
@@ -91,6 +91,7 @@ struct ApplicationsListView: View {
                 }
             }
             .fontDesign(.rounded)
+            .background(.customBabyBlue)
         }
     }
     

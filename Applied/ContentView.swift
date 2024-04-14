@@ -25,7 +25,7 @@ struct ContentView: View {
         }
         .onAppear {
             // Check if intro has been shown before
-            if !UserDefaults.standard.bool(forKey: "hasShownIntro") {
+            if UserDefaults.standard.bool(forKey: "hasShownIntro") == false {
                 print(UserDefaults.standard.bool(forKey: "hasShownIntro"))
                 self.showIntro = false
             }
