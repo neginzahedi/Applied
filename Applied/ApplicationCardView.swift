@@ -14,59 +14,88 @@ struct ApplicationCardView: View {
     // MARK: - Body
     
     var body: some View {
-        VStack(alignment: .leading){
-            jobInfoView
-            applicationStatusView
+        HStack(spacing: 0) {
+            statusRectangleView
+            jobInfoRectangleView
         }
-        .bold()
-        .padding()
-        .clipShape(RoundedRectangle(cornerRadius: 10))
-        .overlay(
-            RoundedRectangle(cornerRadius: 10)
-                .stroke(.primary, lineWidth: 1)
-        )
         .tint(.primary)
-        .padding(.horizontal,20)
-        .padding(.vertical, 5)
+        .background(.white)
+        .clipShape(RoundedRectangle(cornerRadius: 20))
+        .padding(.horizontal, 20)
     }
     
     // MARK: - Private Views
     
+    private var statusRectangleView : some View {
+        Rectangle()
+            .fill(statusColor)
+            .frame(width: 50, height: 130)
+            .overlay(statusText)
+    }
+    
+    private var statusColor: Color {
+        switch application.applicationStatus {
+        case "Not Selected":
+            return .customPink
+        case "Offer Accepted":
+            return .customBlue
+        default:
+            return .customYellow
+        }
+    }
+    
+    private var statusText: some View {
+        Text(application.applicationStatus ?? "application status")
+            .rotationEffect(.degrees(-90))
+            .font(.caption)
+            .fixedSize(horizontal: true, vertical: false) // Allow text to expand horizontally
+    }
+    
+    private var jobInfoRectangleView: some View{
+        RoundedRectangle(cornerRadius: 10)
+            .fill(Color.white)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .overlay(
+                HStack{
+                    VStack(alignment: .leading){
+                        jobInfoView
+                        Spacer()
+                        dateAppliedView
+                    }
+                    Spacer()
+                }.padding()
+            )
+    }
+    
     private var jobInfoView: some View {
         VStack(alignment:.leading){
             Text(application.jobTitle ?? "Job Title")
-            Text("(\(String(describing: application.company ?? "Company")))")
-                .font(.footnote)
+                .font(.subheadline)
+                .bold()
+            Text("\(String(describing: application.company ?? "Company"))")
+                .font(.subheadline)
                 .foregroundStyle(.secondary)
         }
     }
     
-    private var applicationStatusView: some View {
-        HStack {
-            dateAppliedView
-            Spacer()
-            statusTextView
-        }
-    }
-    
     private var dateAppliedView: some View {
-        HStack {
-            Image(systemName: "calendar")
-            Text("\(Utils.formatDateToMonthDayYear(application.dateApplied ?? Date()))")
-                .font(.footnote)
+        HStack{
+            HStack {
+                Image(systemName: "calendar")
+                Text("\(Utils.formatDateToMonthDayYear(application.dateApplied ?? Date()))")
+            }
+            .font(.footnote)
+            
+            Spacer()
+            Button {
+                // TODO: Bookmark
+            } label: {
+                Image(systemName: "bookmark")
+            }
+            
         }
-    }
-    
-    private var statusTextView: some View {
-        Text(application.applicationStatus ?? "Application Status")
-            .frame(minWidth: 100)
-            .font(.caption)
-            .padding(10)
-            .background(application.applicationStatus == "Not Selected" ? Color(.customPink) : application.applicationStatus == "Offer Accepted" ? Color(.customBlue): Color(.customYellow), in: RoundedRectangle(cornerRadius: 10))
     }
 }
-// 222,105,107
-
 
 
 //#Preview {
