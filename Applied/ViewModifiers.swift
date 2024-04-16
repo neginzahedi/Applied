@@ -6,13 +6,14 @@
 import SwiftUI
 
 struct RoundedRectangleModifier: ViewModifier {
+    var cornerRadius : CGFloat
     func body(content: Content) -> some View {
         content
-            .padding()
-            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .padding(10)
+            .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
             .overlay(
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(.primary, lineWidth: 1)
+                RoundedRectangle(cornerRadius: cornerRadius)
+                    .stroke(.black.opacity(0.1), lineWidth: 1)
             )
     }
 }
