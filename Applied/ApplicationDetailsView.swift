@@ -59,7 +59,7 @@ struct ApplicationDetailsView: View {
                 .bold()
             Spacer()
         }
-        .modifier(RoundedRectangleModifier())
+        .modifier(RoundedRectangleModifier(cornerRadius: 10))
         .background(.customYellow, in: RoundedRectangle(cornerRadius: 10))
     }
     
@@ -73,7 +73,7 @@ struct ApplicationDetailsView: View {
                 infoView(title: "Date Applied", text: Utils.formatDateToMonthDayYear(application.dateApplied ?? Date()))
             }
         }
-        .modifier(RoundedRectangleModifier())
+        .modifier(RoundedRectangleModifier(cornerRadius: 10))
         .background(.white, in: RoundedRectangle(cornerRadius: 10))
         
     }
@@ -95,7 +95,7 @@ struct ApplicationDetailsView: View {
             }
             Text(note)
         }
-        .modifier(RoundedRectangleModifier())
+        .modifier(RoundedRectangleModifier(cornerRadius: 10))
         .background(.white, in: RoundedRectangle(cornerRadius: 10))
     }
     
@@ -115,7 +115,7 @@ struct ApplicationDetailsView: View {
                 saveChanges()
             }
         }
-        .modifier(RoundedRectangleModifier())
+        .modifier(RoundedRectangleModifier(cornerRadius: 10))
         .background(.white, in: RoundedRectangle(cornerRadius: 10))
     }
     
@@ -130,7 +130,7 @@ struct ApplicationDetailsView: View {
                     Text("Edit")
                     Spacer()
                 }
-                .modifier(RoundedRectangleModifier())
+                .modifier(RoundedRectangleModifier(cornerRadius: 10))
                 .background(.customBlue, in: RoundedRectangle(cornerRadius: 10))
                 .foregroundColor(.black)
                 .font(.headline)
@@ -145,7 +145,7 @@ struct ApplicationDetailsView: View {
                     Text("Delete")
                     Spacer()
                 }
-                .modifier(RoundedRectangleModifier())
+                .modifier(RoundedRectangleModifier(cornerRadius: 10))
                 .background(.customPink, in: RoundedRectangle(cornerRadius: 10))
                 .foregroundColor(.black)
                 .font(.headline)
