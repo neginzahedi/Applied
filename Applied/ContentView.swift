@@ -23,6 +23,7 @@ struct ContentView: View {
                 ApplicationsListView()
             }
         }
+        .fontDesign(.rounded)
         .onAppear {
             // Check if intro has been shown before
             if UserDefaults.standard.bool(forKey: "hasShownIntro") == false {
