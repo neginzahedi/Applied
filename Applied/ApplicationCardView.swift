@@ -38,6 +38,12 @@ struct ApplicationCardView: View {
         case "Not Selected":
             return .customPink
         case "Offer Accepted":
+            return .customGreen
+        case "Interview Scheduled":
+            return .customBlue
+        case "Interviewed":
+            return .customBlue
+        case "Pending Decision":
             return .customBlue
         default:
             return .customYellow
