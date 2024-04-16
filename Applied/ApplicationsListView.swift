@@ -73,7 +73,7 @@ struct ApplicationsListView: View {
                             }
                         }
                     }
-                    
+                    .background(.customBabyBlue)
                 }
             }
             .navigationDestination(for: Application.self) { application in
@@ -91,7 +91,6 @@ struct ApplicationsListView: View {
                 }
             }
             .fontDesign(.rounded)
-            .background(.customBabyBlue)
         }
     }
     
