@@ -17,103 +17,19 @@ struct ApplicationDetailsView: View {
     @State var applicationStatus: String
     @State private var showConfirmation: Bool = false
     
-    private var statusColor: Color {
-        switch application.applicationStatus {
-        case "Not Selected":
-            return .customPink
-        case "Offer Accepted":
-            return .customGreen
-        case "Interview Scheduled":
-            return .customBlue
-        case "Interviewed":
-            return .customBlue
-        case "Pending Decision":
-            return .customBlue
-        default:
-            return .customYellow
-        }
-    }
-
+    
     // MARK: - Body
     
     var body: some View {
         VStack{
-            VStack(alignment: .leading, spacing: 50){
-                VStack(alignment: .leading){
-                    Text(application.jobTitle ?? "Job Title")
-                        .font(.title3)
-                        .bold()
-                    Text(application.company ?? "Company")
-                        .foregroundStyle(.secondary)
-                }
-                
-                VStack(spacing: 25){
-                    HStack{
-                        VStack{
-                            HStack{
-                                Image(systemName: "globe.desk")
-                                    .foregroundStyle(.customBlue)
-                                Text("Location")
-                                    .foregroundStyle(.secondary)
-                                Spacer()
-                            }
-                            .font(.footnote)
-                            HStack{
-                                Text(application.location ?? "Location")
-                                Spacer()
-                            }
-                        }
-                        VStack{
-                            HStack{
-                                Image(systemName: "briefcase")
-                                    .foregroundStyle(.customPink)
-                                Text("Employment Type")
-                                    .foregroundStyle(.secondary)
-                                Spacer()
-                            }
-                            .bold()
-                            .font(.footnote)
-                            HStack{
-                                Text(application.employmentType ?? "")
-                                Spacer()
-                            }
-                        }
-                    }
-                    
-                    HStack{
-                        VStack{
-                            HStack{
-                                Image(systemName: "building.2")
-                                    .foregroundStyle(.customGreen)
-                                Text("Work Mode")
-                                    .foregroundStyle(.secondary)
-                                Spacer()
-                            }
-                            .font(.footnote)
-                            HStack{
-                                Text(application.workMode ?? "")
-                                Spacer()
-                            }
-                        }
-                        VStack{
-                            HStack{
-                                Image(systemName: "calendar")
-                                    .foregroundStyle(.customYellow)
-                                Text("Date Applied")
-                                    .foregroundStyle(.secondary)
-                                Spacer()
-                            }
-                            .bold()
-                            .font(.footnote)
-                            HStack{
-                                Text(Utils.formatDateToMonthDayYear(application.dateApplied ?? Date()))
-                                Spacer()
-                            }
-                        }
-                    }
-                }
-                .bold()
+            VStack(alignment: .leading, spacing: 20){
+                jobTitleView()
+                Divider()
+                applicationInfoView()
+                Divider()
                 statusPicker()
+                Divider()
+                // schedule view
                 VStack(alignment: .leading){
                     Text("Upcoming Schedule")
                         .font(.headline)
@@ -184,7 +100,7 @@ struct ApplicationDetailsView: View {
                     })
                 } label: {
                     Image(systemName: "ellipsis")
-
+                    
                 }
             }
         }
@@ -193,49 +109,47 @@ struct ApplicationDetailsView: View {
     }
     
     // MARK: - Views
-
+    
+    private func jobTitleView() -> some View {
+        VStack(alignment: .leading){
+            Text(application.jobTitle ?? "Job Title")
+                .font(.title3)
+                .bold()
+            Text(application.company ?? "Company")
+                .foregroundStyle(.secondary)
+        }
+    }
+    
     
     private func applicationInfoView() -> some View {
-        VStack(alignment: .center, spacing: 10){
-            VStack(spacing: 25){
-                infoView(title: "Company", text: application.company ?? "company")
-                infoView(title: "Location", text: application.location ?? "Location")
-                infoView(title: "Employment Type", text: application.employmentType ?? "Employment Type")
-                infoView(title: "Work Mode", text: application.workMode ?? "Work Mode")
-                infoView(title: "Date Applied", text: Utils.formatDateToMonthDayYear(application.dateApplied ?? Date()))
-            }
+        VStack(spacing: 25){
+            infoView(icon: "globe.desk", title: "Location", text: application.location ?? Constants.defaultText)
+            infoView(icon: "briefcase", title: "Employment Type", text: (application.employmentType ?? Constants.defaultText) + " - " + (application.workMode ?? Constants.defaultText))
+            infoView(icon: "calendar", title: "Date Applied", text: Utils.formatDateToMonthDayYear(application.dateApplied ?? Date()))
         }
-        .modifier(RoundedRectangleModifier(cornerRadius: 10))
-        .background(.white, in: RoundedRectangle(cornerRadius: 10))
-        
+        .bold()
     }
     
-    private func infoView(title: String, text: String) -> some View {
-        HStack{
-            Text(title)
-                .foregroundStyle(.secondary)
-            Spacer()
-            Text(text)
-        }
-    }
-    
-    private func noteView(note: String) -> some View {
-        VStack(alignment: .leading){
+    private func infoView(icon: String, title: String, text: String) -> some View {
+        VStack{
             HStack{
-                Text("Note:")
+                Image(systemName: icon)
+                Text(title)
+                    .foregroundStyle(.secondary)
                 Spacer()
             }
-            Text(note)
+            .font(.footnote)
+            HStack{
+                Text(text)
+                Spacer()
+            }
         }
-        .modifier(RoundedRectangleModifier(cornerRadius: 10))
-        .background(.white, in: RoundedRectangle(cornerRadius: 10))
     }
     
     private func statusPicker() -> some View{
         HStack{
-            Text("Application Status")
-                .foregroundStyle(.secondary)
-            Spacer()
+            Text("Application Status:")
+            
             Picker("Status", selection: $applicationStatus) {
                 ForEach(Constants.applicationStatuses, id: \.self) { status in
                     Text(status)
@@ -247,8 +161,7 @@ struct ApplicationDetailsView: View {
                 saveChanges()
             }
         }
-        .modifier(RoundedRectangleModifier(cornerRadius: 10))
-        .background(.white, in: RoundedRectangle(cornerRadius: 10))
+        
     }
     
     // MARK: - Methods
