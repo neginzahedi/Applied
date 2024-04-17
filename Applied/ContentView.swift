@@ -20,7 +20,7 @@ struct ContentView: View {
             if showIntro {
                 IntroView(showIntro: $showIntro)
             } else {
-                ApplicationsListView()
+                MainView()
             }
         }
         .fontDesign(.rounded)

@@ -17,21 +17,116 @@ struct ApplicationDetailsView: View {
     @State var applicationStatus: String
     @State private var showConfirmation: Bool = false
     
+    private var statusColor: Color {
+        switch application.applicationStatus {
+        case "Not Selected":
+            return .customPink
+        case "Offer Accepted":
+            return .customGreen
+        case "Interview Scheduled":
+            return .customBlue
+        case "Interviewed":
+            return .customBlue
+        case "Pending Decision":
+            return .customBlue
+        default:
+            return .customYellow
+        }
+    }
+
     // MARK: - Body
     
     var body: some View {
-        VStack(spacing: 15){
-            jobTitleView()
-            applicationInfoView()
-            if let note = application.note, !note.isEmpty {
-                noteView(note: note)
+        VStack{
+            VStack(alignment: .leading, spacing: 50){
+                VStack(alignment: .leading){
+                    Text(application.jobTitle ?? "Job Title")
+                        .font(.title3)
+                        .bold()
+                    Text(application.company ?? "Company")
+                        .foregroundStyle(.secondary)
+                }
+                
+                VStack(spacing: 25){
+                    HStack{
+                        VStack{
+                            HStack{
+                                Image(systemName: "globe.desk")
+                                    .foregroundStyle(.customBlue)
+                                Text("Location")
+                                    .foregroundStyle(.secondary)
+                                Spacer()
+                            }
+                            .font(.footnote)
+                            HStack{
+                                Text(application.location ?? "Location")
+                                Spacer()
+                            }
+                        }
+                        VStack{
+                            HStack{
+                                Image(systemName: "briefcase")
+                                    .foregroundStyle(.customPink)
+                                Text("Employment Type")
+                                    .foregroundStyle(.secondary)
+                                Spacer()
+                            }
+                            .bold()
+                            .font(.footnote)
+                            HStack{
+                                Text(application.employmentType ?? "")
+                                Spacer()
+                            }
+                        }
+                    }
+                    
+                    HStack{
+                        VStack{
+                            HStack{
+                                Image(systemName: "building.2")
+                                    .foregroundStyle(.customGreen)
+                                Text("Work Mode")
+                                    .foregroundStyle(.secondary)
+                                Spacer()
+                            }
+                            .font(.footnote)
+                            HStack{
+                                Text(application.workMode ?? "")
+                                Spacer()
+                            }
+                        }
+                        VStack{
+                            HStack{
+                                Image(systemName: "calendar")
+                                    .foregroundStyle(.customYellow)
+                                Text("Date Applied")
+                                    .foregroundStyle(.secondary)
+                                Spacer()
+                            }
+                            .bold()
+                            .font(.footnote)
+                            HStack{
+                                Text(Utils.formatDateToMonthDayYear(application.dateApplied ?? Date()))
+                                Spacer()
+                            }
+                        }
+                    }
+                }
+                .bold()
+                statusPicker()
+                VStack(alignment: .leading){
+                    Text("Upcoming Schedule")
+                        .font(.headline)
+                    VStack{
+                        Text("There is no upcoming events for this application.")
+                            .font(.callout)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+                Spacer()
             }
-            statusPicker()
-            Spacer()
-            actionButtons()
+            .padding(20)
         }
-        .padding()
-        
         
         .confirmationDialog("Delete Application",
                             isPresented: $showConfirmation,
@@ -45,23 +140,60 @@ struct ApplicationDetailsView: View {
             Text("Are you sure you want to delete \(application.jobTitle ?? "this") application?")
         }
         
-        .navigationTitle("Application Details")
-        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle("Application Detail")
+        .toolbar{
+            ToolbarItem(placement: .topBarLeading) {
+                Button(action: {
+                    dismiss()
+                }, label: {
+                    Image(systemName: "arrow.backward")
+                })
+            }
+            
+            ToolbarItem(placement: .topBarTrailing) {
+                Menu{
+                    Button(action: {
+                        // TODO: Edit applications, navigate to edit view
+                        print("edited")
+                    }, label: {
+                        HStack{
+                            Spacer()
+                            Text("Edit")
+                            Spacer()
+                        }
+                        .modifier(RoundedRectangleModifier(cornerRadius: 10))
+                        .background(.customBlue, in: RoundedRectangle(cornerRadius: 10))
+                        .foregroundColor(.black)
+                        .font(.headline)
+                        .fontDesign(.rounded)
+                    })
+                    
+                    Button(action: {
+                        showConfirmation.toggle()
+                    }, label: {
+                        HStack{
+                            Spacer()
+                            Text("Delete")
+                            Spacer()
+                        }
+                        .modifier(RoundedRectangleModifier(cornerRadius: 10))
+                        .background(.customPink, in: RoundedRectangle(cornerRadius: 10))
+                        .foregroundColor(.black)
+                        .font(.headline)
+                        .fontDesign(.rounded)
+                    })
+                } label: {
+                    Image(systemName: "ellipsis")
+
+                }
+            }
+        }
+        .tint(.primary)
+        .navigationBarBackButtonHidden()
     }
     
     // MARK: - Views
-    
-    private func jobTitleView() -> some View {
-        HStack{
-            Spacer()
-            Text(application.jobTitle ?? "Job Title")
-                .font(.headline)
-                .bold()
-            Spacer()
-        }
-        .modifier(RoundedRectangleModifier(cornerRadius: 10))
-        .background(.customYellow, in: RoundedRectangle(cornerRadius: 10))
-    }
+
     
     private func applicationInfoView() -> some View {
         VStack(alignment: .center, spacing: 10){
@@ -117,42 +249,6 @@ struct ApplicationDetailsView: View {
         }
         .modifier(RoundedRectangleModifier(cornerRadius: 10))
         .background(.white, in: RoundedRectangle(cornerRadius: 10))
-    }
-    
-    private func actionButtons() -> some View{
-        HStack(spacing: 15){
-            Button(action: {
-                // TODO: Edit applications, navigate to edit view
-                print("edited")
-            }, label: {
-                HStack{
-                    Spacer()
-                    Text("Edit")
-                    Spacer()
-                }
-                .modifier(RoundedRectangleModifier(cornerRadius: 10))
-                .background(.customBlue, in: RoundedRectangle(cornerRadius: 10))
-                .foregroundColor(.black)
-                .font(.headline)
-                .fontDesign(.rounded)
-            })
-            
-            Button(action: {
-                showConfirmation.toggle()
-            }, label: {
-                HStack{
-                    Spacer()
-                    Text("Delete")
-                    Spacer()
-                }
-                .modifier(RoundedRectangleModifier(cornerRadius: 10))
-                .background(.customPink, in: RoundedRectangle(cornerRadius: 10))
-                .foregroundColor(.black)
-                .font(.headline)
-                .fontDesign(.rounded)
-            })
-        }
-        .padding(.bottom, 10)
     }
     
     // MARK: - Methods

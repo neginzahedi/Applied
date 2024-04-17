@@ -20,7 +20,13 @@ struct ApplicationCardView: View {
         }
         .tint(.primary)
         .background(.white)
-        .clipShape(RoundedRectangle(cornerRadius: 20))
+        .clipShape(
+            RoundedRectangle(cornerRadius: 20)
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 20)
+                .stroke(.black.opacity(0.1), lineWidth: 1)
+        )
         .padding(.horizontal, 20)
     }
     
