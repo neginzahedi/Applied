@@ -37,44 +37,17 @@ struct AddJobApplicationView: View {
                     PickerWithTitle(title: "Work Mode", selection: $workMode, options: Constants.workModes)
                     PickerWithTitle(title: "Application Status", selection: $applicationStatus, options: Constants.applicationStatuses)
                     
-                    
                     DatePicker("Date Applied", selection: $dateApplied, in: ...Date(), displayedComponents: [.date])
                         .bold()
                     
-                    Button(action: {
-                        saveApplication()
-                    }, label: {
-                        Text("Save Application")
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 50)
-                            .background(Color(.blue))
-                            .clipShape(Capsule())
-                            .foregroundColor(.white)
-                            .font(.headline)
-                            .fontDesign(.rounded)
-                    })
-                    .padding(20)
-                    .opacity(jobTitle.isEmpty || company.isEmpty ? 0.5 : 1)
-                    .disabled(jobTitle.isEmpty || company.isEmpty)
-                    
+                    CharacterLimitedTextEditor(text: $note, characterLimit: 255)
+                        .modifier(RoundedRectangleModifier(cornerRadius: 10))
+
                 }
                 .padding()
-                .background(.white)
-                .clipShape(RoundedRectangle(cornerRadius: 20))
-                .padding(20)
             }
             .font(.subheadline)
-            .padding(.top, 100)
         }
-        .background(content: {
-            VStack(spacing: 0) {
-                Color.customBlue
-                    .frame(height: UIScreen.main.bounds.height / 3)
-                Color.secondary.opacity(0.15)
-                
-            }
-        })
-        .ignoresSafeArea()
         .scrollIndicators(.hidden)
         .autocorrectionDisabled()
         .textInputAutocapitalization(.never)
@@ -87,6 +60,16 @@ struct AddJobApplicationView: View {
                 }, label: {
                     Image(systemName: "arrow.backward")
                 })
+                .tint(.primary)
+            }
+            
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(action: {
+                    saveApplication()
+                }, label: {
+                    Text("Add")
+                })
+                .disabled(jobTitle.isEmpty || company.isEmpty)
                 .tint(.primary)
             }
         }
@@ -133,7 +116,7 @@ struct TextFieldWithTitle: View {
         VStack(alignment: .leading) {
             Text(title).bold()
             TextField(placeholder, text: $text)
-                .modifier(RoundedRectangleModifier(cornerRadius: 30))
+                .modifier(RoundedRectangleModifier(cornerRadius: 10))
         }
     }
 }
