@@ -49,6 +49,8 @@ struct ApplicationCardView: View {
             return .customBlue
         case "Interviewed":
             return .customBlue
+        case "Withdrawn":
+            return .gray
         case "Pending Decision":
             return .customBlue
         default:
