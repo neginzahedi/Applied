@@ -10,7 +10,6 @@ class DataController: ObservableObject{
     
     let container = NSPersistentContainer(name: "JobApplication")
     
-    
     init() {
         container.loadPersistentStores { description, error in
             

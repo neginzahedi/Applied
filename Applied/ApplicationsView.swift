@@ -1,5 +1,5 @@
 //
-//  ApplicationsListView.swift
+//  ApplicationsView.swift
 //  Applied
 //
 //  Created by Negin Zahedi on 2024-04-17.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ApplicationsListView: View {
+struct ApplicationsView: View {
     
     var applications: FetchedResults<Application>
     @State var selectedStatus: String = "All"

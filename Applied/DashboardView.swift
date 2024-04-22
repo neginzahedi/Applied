@@ -1,12 +1,12 @@
 //
-//  ContentView.swift
+//  DashboardView.swift
 //  Applied
 //
 
 
 import SwiftUI
 
-struct ContentView: View {
+struct DashboardView: View {
     
     // MARK: - Properties
     
@@ -33,7 +33,7 @@ struct ContentView: View {
             .toolbar{
                 ToolbarItem {
                     NavigationLink {
-                        AddJobApplicationView()
+                        AddNewApplicationView()
                     } label: {
                         Image(systemName: "pencil.and.list.clipboard")
                     }.tint(.primary)
@@ -59,7 +59,7 @@ struct ContentView: View {
 
 // MARK: - Subviews
 
-extension ContentView {
+extension DashboardView {
     
     // MARK: - EmptyListView
     
@@ -95,7 +95,7 @@ extension ContentView {
                         Text("Recent Applications")
                             .bold()
                         Spacer()
-                        NavigationLink(destination: ApplicationsListView(applications: applications)) {
+                        NavigationLink(destination: ApplicationsView(applications: applications)) {
                             Text("See All")
                                 .font(.footnote)
                         }
@@ -150,5 +150,5 @@ extension ContentView {
 // MARK: - Preview MainView
 
 #Preview {
-    ContentView()
+    DashboardView()
 }

@@ -1,5 +1,5 @@
 //
-//  AddJobApplicationView.swift
+//  AddNewApplicationView.swift
 //  Applied
 //
 
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AddJobApplicationView: View {
+struct AddNewApplicationView: View {
     
     // MARK: - Properties
     
@@ -141,11 +141,11 @@ struct PickerWithTitle: View {
 }
 
 
-// MARK: - AddJobApplicationView Preview
+// MARK: - AddNewApplicationView Preview
 
 #if DEBUG
 #Preview {
-    AddJobApplicationView()
+    AddNewApplicationView()
 }
 #endif
 

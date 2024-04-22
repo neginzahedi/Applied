@@ -16,7 +16,7 @@ struct MainView: View {
             if showIntro {
                 IntroView(showIntro: $showIntro)
             } else {
-                ContentView()
+                DashboardView()
             }
         }
         .fontDesign(.rounded)
