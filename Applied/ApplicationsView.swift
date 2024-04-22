@@ -82,7 +82,7 @@ struct StatusView: View {
             .padding(8)
             .background(isSelected ?                                         Color(.customYellow)
                         : Color.white)
-            .font(.system(.caption, design: .rounded))
+            .font(.caption)
             .clipShape(Capsule())
             .overlay(
                 Capsule()

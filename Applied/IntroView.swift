@@ -25,7 +25,6 @@ struct IntroView: View {
                 Text("Welcome to Applied")
                     .font(.title)
                     .bold()
-                    .fontDesign(.rounded)
                     .padding(.bottom, 15)
                 
                 Text("Applied assists you in staying organized and conveniently tracking your job applications.")
@@ -47,7 +46,6 @@ struct IntroView: View {
                     .clipShape(Capsule())
                     .foregroundColor(.black)
                     .font(.headline)
-                    .fontDesign(.rounded)
             })
             
             Spacer()

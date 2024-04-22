@@ -128,6 +128,7 @@
 				0FDCB4CF2BB47C7F00423576 /* AddNewApplicationView.swift */,
 				0FDCB4D12BB4C8C900423576 /* ApplicationDetailsView.swift */,
 				0F41A1E42BC751D6007FD327 /* ApplicationCardView.swift */,
+				0F5581172BD06AC200BC011F /* UpcomingInterviewCardView.swift */,
 				0F2CC9D72BC072B10036F5B8 /* CharacterLimitedTextEditor.swift */,
 				0F69C8FA2BCC536800663655 /* ViewModifiers.swift */,
 				0FDCB4D32BB4CD0300423576 /* Utils.swift */,
@@ -136,7 +137,6 @@
 				0F3F866A2BB478E8003858D8 /* JobApplication.xcdatamodeld */,
 				0F3F86422BB473D3003858D8 /* Assets.xcassets */,
 				0F3F86442BB473D3003858D8 /* Preview Content */,
-				0F5581172BD06AC200BC011F /* UpcomingInterviewCardView.swift */,
 			);
 			path = Applied;
 			sourceTree = "<group>";

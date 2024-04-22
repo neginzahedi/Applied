@@ -36,10 +36,9 @@ struct DashboardView: View {
                         AddNewApplicationView()
                     } label: {
                         Image(systemName: "pencil.and.list.clipboard")
-                    }.tint(.primary)
+                    }
                 }
             }
-            .fontDesign(.rounded)
         }
     }
     
@@ -73,7 +72,6 @@ extension DashboardView {
                     .padding(50)
                 Text("Get started by adding your first job application! Tap the \(Image(systemName: "pencil.and.list.clipboard")) button to begin.")
                     .multilineTextAlignment(.center)
-                    .fontDesign(.rounded)
                     .foregroundStyle(.secondary)
                     .padding()
                 Spacer()
@@ -99,8 +97,8 @@ extension DashboardView {
                             Text("See All")
                                 .font(.footnote)
                         }
-                        .tint(.primary)
-                    }                        .padding(.horizontal, 20)
+                    }
+                    .padding(.horizontal, 20)
                     
                     
                     ScrollView(.vertical) {
@@ -129,7 +127,6 @@ extension DashboardView {
                         Text("See All")
                             .font(.footnote)
                     }
-                    .tint(.primary)
                 }
                 .padding(.horizontal, 20)
                 

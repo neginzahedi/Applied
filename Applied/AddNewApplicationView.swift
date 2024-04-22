@@ -42,7 +42,7 @@ struct AddNewApplicationView: View {
                     
                     CharacterLimitedTextEditor(text: $note, characterLimit: 255)
                         .modifier(RoundedRectangleModifier(cornerRadius: 10))
-
+                    
                 }
                 .padding()
             }
@@ -60,7 +60,6 @@ struct AddNewApplicationView: View {
                 }, label: {
                     Image(systemName: "arrow.backward")
                 })
-                .tint(.primary)
             }
             
             ToolbarItem(placement: .topBarTrailing) {
@@ -70,7 +69,6 @@ struct AddNewApplicationView: View {
                     Text("Add")
                 })
                 .disabled(jobTitle.isEmpty || company.isEmpty)
-                .tint(.primary)
             }
         }
         .navigationBarBackButtonHidden()
@@ -135,7 +133,6 @@ struct PickerWithTitle: View {
                     Text(option.description).tag(option)
                 }
             }
-            .tint(.primary)
         }
     }
 }

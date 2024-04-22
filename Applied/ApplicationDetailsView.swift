@@ -81,7 +81,6 @@ struct ApplicationDetailsView: View {
                         .background(.customBlue, in: RoundedRectangle(cornerRadius: 10))
                         .foregroundColor(.black)
                         .font(.headline)
-                        .fontDesign(.rounded)
                     })
                     
                     Button(action: {
@@ -96,7 +95,6 @@ struct ApplicationDetailsView: View {
                         .background(.customPink, in: RoundedRectangle(cornerRadius: 10))
                         .foregroundColor(.black)
                         .font(.headline)
-                        .fontDesign(.rounded)
                     })
                 } label: {
                     Image(systemName: "ellipsis")
@@ -104,7 +102,6 @@ struct ApplicationDetailsView: View {
                 }
             }
         }
-        .tint(.primary)
         .navigationBarBackButtonHidden()
     }
     
@@ -156,7 +153,6 @@ struct ApplicationDetailsView: View {
                         .tag(status)
                 }
             }
-            .tint(.primary)
             .onChange(of: applicationStatus) {
                 saveChanges()
             }

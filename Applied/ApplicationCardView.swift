@@ -18,7 +18,6 @@ struct ApplicationCardView: View {
             statusRectangleView
             jobInfoRectangleView
         }
-        .tint(.primary)
         .background(.white)
         .clipShape(
             RoundedRectangle(cornerRadius: 20)

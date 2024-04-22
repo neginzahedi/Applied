@@ -20,6 +20,7 @@ struct MainView: View {
             }
         }
         .fontDesign(.rounded)
+        .tint(.primary)
         
         .onAppear(){
             if UserDefaults.standard.bool(forKey: "hasShownIntro") == false {
