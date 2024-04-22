@@ -10,7 +10,6 @@
 		0F2CC9D82BC072B10036F5B8 /* CharacterLimitedTextEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2CC9D72BC072B10036F5B8 /* CharacterLimitedTextEditor.swift */; };
 		0F33D21F2BC4A7810017D072 /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F33D21E2BC4A7810017D072 /* IntroView.swift */; };
 		0F3F863F2BB473D2003858D8 /* AppliedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3F863E2BB473D2003858D8 /* AppliedApp.swift */; };
-		0F3F86412BB473D2003858D8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3F86402BB473D2003858D8 /* ContentView.swift */; };
 		0F3F86432BB473D3003858D8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F3F86422BB473D3003858D8 /* Assets.xcassets */; };
 		0F3F86462BB473D3003858D8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F3F86452BB473D3003858D8 /* Preview Assets.xcassets */; };
 		0F3F86502BB473D3003858D8 /* AppliedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3F864F2BB473D3003858D8 /* AppliedTests.swift */; };
@@ -18,11 +17,12 @@
 		0F3F865C2BB473D3003858D8 /* AppliedUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3F865B2BB473D3003858D8 /* AppliedUITestsLaunchTests.swift */; };
 		0F3F86692BB478B7003858D8 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3F86682BB478B7003858D8 /* DataController.swift */; };
 		0F3F866C2BB478E8003858D8 /* JobApplication.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0F3F866A2BB478E8003858D8 /* JobApplication.xcdatamodeld */; };
-		0F41A1E32BC6FC65007FD327 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F41A1E22BC6FC65007FD327 /* MainView.swift */; };
+		0F41A1E32BC6FC65007FD327 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F41A1E22BC6FC65007FD327 /* ContentView.swift */; };
 		0F41A1E52BC751D6007FD327 /* ApplicationCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F41A1E42BC751D6007FD327 /* ApplicationCardView.swift */; };
 		0F5581182BD06AC200BC011F /* UpcomingInterviewCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5581172BD06AC200BC011F /* UpcomingInterviewCardView.swift */; };
 		0F55811A2BD06D1600BC011F /* ApplicationsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5581192BD06D1600BC011F /* ApplicationsListView.swift */; };
 		0F69C8FB2BCC536800663655 /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F69C8FA2BCC536800663655 /* ViewModifiers.swift */; };
+		0F7E8D652BD7096A00138849 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7E8D642BD7096A00138849 /* MainView.swift */; };
 		0F7EEB612BBB4F2B0061A9C1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7EEB602BBB4F2B0061A9C1 /* Constants.swift */; };
 		0FDCB4D02BB47C7F00423576 /* AddJobApplicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDCB4CF2BB47C7F00423576 /* AddJobApplicationView.swift */; };
 		0FDCB4D22BB4C8C900423576 /* ApplicationDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDCB4D12BB4C8C900423576 /* ApplicationDetailsView.swift */; };
@@ -51,7 +51,6 @@
 		0F33D21E2BC4A7810017D072 /* IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroView.swift; sourceTree = "<group>"; };
 		0F3F863B2BB473D2003858D8 /* Applied.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Applied.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F3F863E2BB473D2003858D8 /* AppliedApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppliedApp.swift; sourceTree = "<group>"; };
-		0F3F86402BB473D2003858D8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		0F3F86422BB473D3003858D8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0F3F86452BB473D3003858D8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0F3F864B2BB473D3003858D8 /* AppliedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppliedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,11 +60,12 @@
 		0F3F865B2BB473D3003858D8 /* AppliedUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppliedUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		0F3F86682BB478B7003858D8 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		0F3F866B2BB478E8003858D8 /* JobApplication.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = JobApplication.xcdatamodel; sourceTree = "<group>"; };
-		0F41A1E22BC6FC65007FD327 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		0F41A1E22BC6FC65007FD327 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		0F41A1E42BC751D6007FD327 /* ApplicationCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationCardView.swift; sourceTree = "<group>"; };
 		0F5581172BD06AC200BC011F /* UpcomingInterviewCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingInterviewCardView.swift; sourceTree = "<group>"; };
 		0F5581192BD06D1600BC011F /* ApplicationsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationsListView.swift; sourceTree = "<group>"; };
 		0F69C8FA2BCC536800663655 /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
+		0F7E8D642BD7096A00138849 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		0F7EEB602BBB4F2B0061A9C1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0FDCB4CF2BB47C7F00423576 /* AddJobApplicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddJobApplicationView.swift; sourceTree = "<group>"; };
 		0FDCB4D12BB4C8C900423576 /* ApplicationDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationDetailsView.swift; sourceTree = "<group>"; };
@@ -121,9 +121,9 @@
 			isa = PBXGroup;
 			children = (
 				0F3F863E2BB473D2003858D8 /* AppliedApp.swift */,
+				0F7E8D642BD7096A00138849 /* MainView.swift */,
 				0F33D21E2BC4A7810017D072 /* IntroView.swift */,
-				0F3F86402BB473D2003858D8 /* ContentView.swift */,
-				0F41A1E22BC6FC65007FD327 /* MainView.swift */,
+				0F41A1E22BC6FC65007FD327 /* ContentView.swift */,
 				0F5581192BD06D1600BC011F /* ApplicationsListView.swift */,
 				0FDCB4CF2BB47C7F00423576 /* AddJobApplicationView.swift */,
 				0FDCB4D12BB4C8C900423576 /* ApplicationDetailsView.swift */,
@@ -296,13 +296,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0F3F86412BB473D2003858D8 /* ContentView.swift in Sources */,
 				0FDCB4D02BB47C7F00423576 /* AddJobApplicationView.swift in Sources */,
 				0F2CC9D82BC072B10036F5B8 /* CharacterLimitedTextEditor.swift in Sources */,
 				0F3F86692BB478B7003858D8 /* DataController.swift in Sources */,
 				0FDCB4D42BB4CD0300423576 /* Utils.swift in Sources */,
 				0F3F866C2BB478E8003858D8 /* JobApplication.xcdatamodeld in Sources */,
-				0F41A1E32BC6FC65007FD327 /* MainView.swift in Sources */,
+				0F41A1E32BC6FC65007FD327 /* ContentView.swift in Sources */,
 				0F3F863F2BB473D2003858D8 /* AppliedApp.swift in Sources */,
 				0F5581182BD06AC200BC011F /* UpcomingInterviewCardView.swift in Sources */,
 				0F33D21F2BC4A7810017D072 /* IntroView.swift in Sources */,
@@ -310,6 +309,7 @@
 				0F69C8FB2BCC536800663655 /* ViewModifiers.swift in Sources */,
 				0FDCB4D22BB4C8C900423576 /* ApplicationDetailsView.swift in Sources */,
 				0F55811A2BD06D1600BC011F /* ApplicationsListView.swift in Sources */,
+				0F7E8D652BD7096A00138849 /* MainView.swift in Sources */,
 				0F7EEB612BBB4F2B0061A9C1 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

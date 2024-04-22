@@ -149,7 +149,7 @@ struct ApplicationDetailsView: View {
     private func statusPicker() -> some View{
         HStack{
             Text("Application Status:")
-            
+            Spacer()
             Picker("Status", selection: $applicationStatus) {
                 ForEach(Constants.applicationStatuses, id: \.self) { status in
                     Text(status)
