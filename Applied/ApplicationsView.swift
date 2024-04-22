@@ -13,8 +13,10 @@ struct ApplicationsView: View {
     @State var selectedStatus: String = "All"
     
     var body: some View {
-        StatusSelectionScrollView(selectedStatus: $selectedStatus)
-        ApplicationsScrollView(applications: applications, selectedStatus: selectedStatus)
+        VStack(spacing: 20){
+            StatusSelectionScrollView(selectedStatus: $selectedStatus)
+            ApplicationsScrollView(applications: applications, selectedStatus: selectedStatus)
+        }
     }
 }
 
@@ -35,6 +37,7 @@ struct StatusSelectionScrollView: View {
                 }
             }
             .padding(.horizontal, 20)
+            .padding(.top, 20)
         }
     }
 }
@@ -47,20 +50,23 @@ struct ApplicationsScrollView: View {
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            VStack(spacing: 15) {
+            LazyVStack(spacing: 15) {
                 if selectedStatus == "All" {
                     ForEach(applications) { application in
-                        NavigationLink(value: application) {
+                        NavigationLink {
+                            ApplicationDetailsView(application: application, applicationStatus: application.applicationStatus ?? "Received")
+                        } label: {
                             ApplicationCardView(application: application)
                         }
                     }
                 } else{
                     let filteredApplications = applications.filter {$0.applicationStatus == selectedStatus}
                     ForEach(filteredApplications) { application in
-                        NavigationLink(value: application) {
+                        NavigationLink {
+                            ApplicationDetailsView(application: application, applicationStatus: application.applicationStatus ?? "Received")
+                        } label: {
                             ApplicationCardView(application: application)
                         }
-                        
                     }
                     
                 }
@@ -78,16 +84,12 @@ struct StatusView: View {
     
     var body: some View {
         Text(status)
-            .foregroundColor(.black)
-            .padding(8)
-            .background(isSelected ?                                         Color(.customYellow)
-                        : Color.white)
             .font(.caption)
-            .clipShape(Capsule())
-            .overlay(
-                Capsule()
-                    .stroke(Color.black, lineWidth: 1) // Adjust the color and line width as needed
-            )
+            .modifier(RoundedRectangleModifier(cornerRadius: 10))
+            .foregroundColor(isSelected ? .white : .black)
+            .background(isSelected ?                                         Color(.black)
+                        : Color.white)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
             .padding(2)
     }
 }

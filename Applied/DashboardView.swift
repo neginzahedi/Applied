@@ -25,9 +25,6 @@ struct DashboardView: View {
                     RecentApplicationsListView(applications: applications)
                 }
             }
-            .navigationDestination(for: Application.self) { application in
-                ApplicationDetailsView(application: application, applicationStatus: application.applicationStatus ?? "Received")
-            }
             .navigationTitle("Applications")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar{
@@ -103,7 +100,9 @@ extension DashboardView {
                     
                     ScrollView(.vertical) {
                         ForEach(applications.prefix(5)) { application in
-                            NavigationLink(value: application) {
+                            NavigationLink {
+                                ApplicationDetailsView(application: application, applicationStatus: application.applicationStatus ?? "Received")
+                            } label: {
                                 ApplicationCardView(application: application)
                             }
                         }
