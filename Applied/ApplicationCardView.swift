@@ -67,6 +67,7 @@ struct ApplicationCardView: View {
     private var jobInfoRectangleView: some View{
         RoundedRectangle(cornerRadius: 10)
             .fill(Color.white)
+            .frame(height: 130)
             .frame(maxWidth: .infinity, alignment: .leading)
             .overlay(
                 HStack{
@@ -111,6 +112,6 @@ struct ApplicationCardView: View {
 }
 
 
-//#Preview {
-//     ApplicationCardView()
-//}
+#Preview {
+    ApplicationCardView(application: Application.example)
+}

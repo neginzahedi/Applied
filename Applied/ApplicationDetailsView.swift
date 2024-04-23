@@ -10,11 +10,9 @@ struct ApplicationDetailsView: View {
     
     // MARK: - Properties
     
-    @Environment(\.managedObjectContext) var managedObjectContext
     @Environment(\.dismiss) var dismiss
-    
     @ObservedObject var application: Application
-    @State var applicationStatus: String
+    //@State var applicationStatus: String
     @State private var showConfirmation: Bool = false
     
     
@@ -48,7 +46,9 @@ struct ApplicationDetailsView: View {
                             isPresented: $showConfirmation,
                             titleVisibility: .visible) {
             Button(role: .destructive) {
-                deleteApplication(application: application)
+                Application.delete(application: application)
+                DataController.shared.save()
+                dismiss()
             } label: {
                 Text("Delete")
             }
@@ -68,20 +68,15 @@ struct ApplicationDetailsView: View {
             
             ToolbarItem(placement: .topBarTrailing) {
                 Menu{
-                    Button(action: {
-                        // TODO: Edit applications, navigate to edit view
-                        print("edited")
-                    }, label: {
+                    NavigationLink {
+                        EditApplicationView(application: application)
+                    } label: {
                         HStack{
                             Spacer()
                             Text("Edit")
                             Spacer()
                         }
-                        .modifier(RoundedRectangleModifier(cornerRadius: 10))
-                        .background(.customBlue, in: RoundedRectangle(cornerRadius: 10))
-                        .foregroundColor(.black)
-                        .font(.headline)
-                    })
+                    }
                     
                     Button(action: {
                         showConfirmation.toggle()
@@ -147,61 +142,15 @@ struct ApplicationDetailsView: View {
         HStack{
             Text("Application Status:")
             Spacer()
-            Picker("Status", selection: $applicationStatus) {
-                ForEach(Constants.applicationStatuses, id: \.self) { status in
-                    Text(status)
-                        .tag(status)
-                }
-            }
-            .onChange(of: applicationStatus) {
-                saveChanges()
-            }
-        }
-        
-    }
-    
-    // MARK: - Methods
-    
-    private func saveChanges() {
-        guard let context = application.managedObjectContext else {
-            fatalError("Application's managed object context is nil.")
-        }
-        
-        context.perform {
-            do {
-                application.applicationStatus = applicationStatus
-                try context.save()
-                print("Application status updated.")
-            } catch {
-                print("Error updating application status: \(error.localizedDescription)")
-            }
-        }
-    }
-    
-    private func deleteApplication(application: Application) {
-        guard let context = application.managedObjectContext else {
-            fatalError("Application's managed object context is nil.")
-        }
-        
-        context.perform {
-            context.delete(application)
-            
-            do {
-                try context.save()
-                print("Application deleted.")
-                
-                DispatchQueue.main.async {
-                    dismiss()
-                }
-            } catch {
-                print("Failed to delete application: \(error.localizedDescription)")
-            }
+            Text(application.applicationStatus_)
+                .bold()
         }
     }
 }
 
 
+// MARK: - Preview
 
-//#Preview {
-//    ApplicationDetailsView()
-//}
+#Preview {
+    ApplicationDetailsView(application: Application.example)
+}

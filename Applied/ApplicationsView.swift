@@ -54,7 +54,7 @@ struct ApplicationsScrollView: View {
                 if selectedStatus == "All" {
                     ForEach(applications) { application in
                         NavigationLink {
-                            ApplicationDetailsView(application: application, applicationStatus: application.applicationStatus ?? "Received")
+                            ApplicationDetailsView(application: application)
                         } label: {
                             ApplicationCardView(application: application)
                         }
@@ -63,7 +63,7 @@ struct ApplicationsScrollView: View {
                     let filteredApplications = applications.filter {$0.applicationStatus == selectedStatus}
                     ForEach(filteredApplications) { application in
                         NavigationLink {
-                            ApplicationDetailsView(application: application, applicationStatus: application.applicationStatus ?? "Received")
+                            ApplicationDetailsView(application: application)
                         } label: {
                             ApplicationCardView(application: application)
                         }

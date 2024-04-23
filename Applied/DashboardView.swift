@@ -10,9 +10,8 @@ struct DashboardView: View {
     
     // MARK: - Properties
     
-    @Environment(\.managedObjectContext) var managedObjectContext
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(key: "dateApplied", ascending: false)]) var applications: FetchedResults<Application>
-    
+    @FetchRequest(fetchRequest: Application.fetch(), animation: .bouncy)
+    var applications: FetchedResults<Application>
     
     // MARK: - Body
     
@@ -36,19 +35,6 @@ struct DashboardView: View {
                     }
                 }
             }
-        }
-    }
-    
-    // MARK: - Private Methods
-    
-    private func deleteApplication(application: Application) {
-        managedObjectContext.delete(application)
-        do {
-            try managedObjectContext.save()
-            print("Deleted application")
-        } catch {
-            // Handle the Core Data error
-            print("Failed to delete application: \(error.localizedDescription)")
         }
     }
 }
@@ -80,6 +66,7 @@ extension DashboardView {
     // MARK: - RecentApplicationsListView
     
     struct RecentApplicationsListView: View {
+        
         var applications: FetchedResults<Application>
         
         var body: some View {
@@ -97,11 +84,10 @@ extension DashboardView {
                     }
                     .padding(.horizontal, 20)
                     
-                    
                     ScrollView(.vertical) {
                         ForEach(applications.prefix(5)) { application in
                             NavigationLink {
-                                ApplicationDetailsView(application: application, applicationStatus: application.applicationStatus ?? "Received")
+                                ApplicationDetailsView(application: application)
                             } label: {
                                 ApplicationCardView(application: application)
                             }
@@ -115,6 +101,7 @@ extension DashboardView {
     
     // MARK: - UpcomingInterviewsSectionView
     struct UpcomingInterviewsSectionView: View {
+        
         var body: some View {
             VStack(alignment: .leading, spacing: 15){
                 HStack{

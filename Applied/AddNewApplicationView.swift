@@ -14,6 +14,7 @@ struct AddNewApplicationView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @Environment(\.dismiss) var dismiss
     
+    
     @State private var jobTitle: String = ""
     @State private var company: String = ""
     @State private var location: String = ""
@@ -78,28 +79,9 @@ struct AddNewApplicationView: View {
     
     private func saveApplication() {
         
-        let application = Application(context: managedObjectContext)
-        application.id = UUID()
-        application.jobTitle = jobTitle
-        application.company = company
-        application.location = location
-        application.employmentType = employmentType
-        application.workMode = workMode
-        application.dateApplied = dateApplied
-        application.applicationStatus = applicationStatus
-        application.note = note
-        
-        do {
-            try self.managedObjectContext.save()
-            print("Application saved!")
-            
-            DispatchQueue.main.async {
-                dismiss()
-            }
-        } catch {
-            print("whoops \(error.localizedDescription)")
-        }
-        
+        _ = Application(jobTitle: jobTitle, company: company, location: location, employmentType: employmentType, workMode: workMode, applicationStatus: applicationStatus, dateApplied: dateApplied, note: note, context: managedObjectContext)
+        DataController.shared.save()
+        dismiss()
     }
 }
 
