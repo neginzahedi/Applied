@@ -13,19 +13,31 @@ struct ApplicationDetailsView: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var application: Application
     //@State var applicationStatus: String
-    @State private var showConfirmation: Bool = false
+    @State private var showDeleteConfirmation: Bool = false
+    @State private var showStatusConfirmation: Bool = false
     
     
     // MARK: - Body
     
     var body: some View {
-        VStack{
+        ScrollView{
             VStack(alignment: .leading, spacing: 20){
                 jobTitleView()
                 Divider()
                 applicationInfoView()
                 Divider()
-                statusPicker()
+                DisclosureGroup {
+                    HStack{
+                        Text(application.note_)
+                            .font(.callout)
+                        Spacer()
+                    }
+                } label: {
+                    Text("Note")
+                        .font(.headline)
+                }
+                .tint(.primary)
+                
                 Divider()
                 // schedule view
                 VStack(alignment: .leading){
@@ -41,9 +53,27 @@ struct ApplicationDetailsView: View {
             }
             .padding(20)
         }
+        .scrollIndicators(.hidden)
+        
+        .confirmationDialog("Change Status", isPresented: $showStatusConfirmation) {
+            ForEach(Constants.applicationStatuses, id: \.self) { status in
+                
+                Button(action: {
+                    // Update the application status here
+                    application.applicationStatus_ = status
+                    // Dismiss the confirmation dialog
+                    DataController.shared.save()
+                    showStatusConfirmation = false
+                }) {
+                    Text(status)
+                }
+            }
+        } message: {
+            Text("Current Status: \(application.applicationStatus_)")
+        }
         
         .confirmationDialog("Delete Application",
-                            isPresented: $showConfirmation,
+                            isPresented: $showDeleteConfirmation,
                             titleVisibility: .visible) {
             Button(role: .destructive) {
                 Application.delete(application: application)
@@ -68,32 +98,34 @@ struct ApplicationDetailsView: View {
             
             ToolbarItem(placement: .topBarTrailing) {
                 Menu{
+                    Button(action: {
+                        showStatusConfirmation.toggle()
+                    }, label: {
+                        HStack{
+                            Text("Update Status")
+                            Image(systemName: "folder.badge.questionmark")
+                        }
+                    })
+                    
                     NavigationLink {
                         EditApplicationView(application: application)
                     } label: {
                         HStack{
-                            Spacer()
                             Text("Edit")
-                            Spacer()
+                            Image(systemName: "pencil")
                         }
                     }
                     
                     Button(action: {
-                        showConfirmation.toggle()
+                        showDeleteConfirmation.toggle()
                     }, label: {
                         HStack{
-                            Spacer()
                             Text("Delete")
-                            Spacer()
+                            Image(systemName: "trash")
                         }
-                        .modifier(RoundedRectangleModifier(cornerRadius: 10))
-                        .background(.customPink, in: RoundedRectangle(cornerRadius: 10))
-                        .foregroundColor(.black)
-                        .font(.headline)
                     })
                 } label: {
                     Image(systemName: "ellipsis")
-                    
                 }
             }
         }
@@ -115,9 +147,14 @@ struct ApplicationDetailsView: View {
     
     private func applicationInfoView() -> some View {
         VStack(spacing: 25){
-            infoView(icon: "globe.desk", title: "Location", text: application.location ?? Constants.defaultText)
-            infoView(icon: "briefcase", title: "Employment Type", text: (application.employmentType ?? Constants.defaultText) + " - " + (application.workMode ?? Constants.defaultText))
-            infoView(icon: "calendar", title: "Date Applied", text: Utils.formatDateToMonthDayYear(application.dateApplied ?? Date()))
+            HStack{
+                infoView(icon: "globe.desk", title: "Location", text: application.location ?? Constants.defaultText)
+                infoView(icon: "briefcase", title: "Employment Type", text: (application.employmentType ?? Constants.defaultText) + " - " + (application.workMode ?? Constants.defaultText))
+            }
+            HStack{
+                infoView(icon: "calendar", title: "Date Applied", text: Utils.formatDateToMonthDayYear(application.dateApplied ?? Date()))
+                infoView(icon: "folder.badge.questionmark", title: "Application's Status", text: application.applicationStatus_)
+            }
         }
         .bold()
     }
@@ -130,20 +167,12 @@ struct ApplicationDetailsView: View {
                     .foregroundStyle(.secondary)
                 Spacer()
             }
-            .font(.footnote)
+            .font(.caption)
             HStack{
                 Text(text)
                 Spacer()
             }
-        }
-    }
-    
-    private func statusPicker() -> some View{
-        HStack{
-            Text("Application Status:")
-            Spacer()
-            Text(application.applicationStatus_)
-                .bold()
+            .font(.footnote)
         }
     }
 }
@@ -154,3 +183,4 @@ struct ApplicationDetailsView: View {
 #Preview {
     ApplicationDetailsView(application: Application.example)
 }
+
