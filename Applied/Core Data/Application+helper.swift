@@ -57,7 +57,12 @@ extension Application {
         set { note = newValue }
     }
     
-    convenience init(jobTitle: String, company: String, location: String,employmentType: String, workMode: String, applicationStatus: String, dateApplied: Date, note: String, context: NSManagedObjectContext ) {
+    var events_: Set<Event> {
+        get { (events as? Set<Event>) ?? [] }
+        set { events = newValue as NSSet }
+    }
+    
+    convenience init(jobTitle: String, company: String, location: String,employmentType: String, workMode: String, applicationStatus: String, dateApplied: Date, note: String, events: Set<Event>, context: NSManagedObjectContext ) {
         self.init(context: context)
         self.jobTitle_ = jobTitle
         self.company_ = company
@@ -67,6 +72,7 @@ extension Application {
         self.applicationStatus_ = applicationStatus
         self.dateApplied_ = dateApplied
         self.note_ = note
+        self.events_ = events
     }
     
     // called when new object created
@@ -90,7 +96,7 @@ extension Application {
     static var example: Application {
         let context = DataController.preview.container.viewContext
         
-        let application = Application(jobTitle: "iOS Developer", company: "Google", location: "Toronto, ON", employmentType: Constants.employmentTypes[0], workMode: Constants.workModes[0], applicationStatus: Constants.applicationStatuses[0], dateApplied: Date(), note: "no note", context: context)
+        let application = Application(jobTitle: "iOS Developer", company: "Google", location: "Toronto, ON", employmentType: Constants.employmentTypes[0], workMode: Constants.workModes[0], applicationStatus: Constants.applicationStatuses[0], dateApplied: Date(), note: "no note", events: [Event(title: "Interview with HR", endDate: Date(), startDate: Date(), note: "some note", context: context)], context: context)
         
         return application
     }

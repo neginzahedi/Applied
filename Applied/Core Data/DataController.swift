@@ -44,7 +44,7 @@ class DataController: ObservableObject{
         let context = controller.container.viewContext
         
         for index in 0..<10 {
-            let application = Application(jobTitle: "iOS Developer", company: "Google", location: "Toronto, ON", employmentType: Constants.employmentTypes[0], workMode: Constants.workModes[0], applicationStatus: Constants.applicationStatuses[0], dateApplied: Date(), note: "no note", context: context)
+            let application = Application(jobTitle: "iOS Developer", company: "Google", location: "Toronto, ON", employmentType: Constants.employmentTypes[0], workMode: Constants.workModes[0], applicationStatus: Constants.applicationStatuses[0], dateApplied: Date(), note: "no note", events: [Event(title: "", endDate: Date(), startDate: Date(), note: "", context: context)], context: context)
         }
         return controller
     }()

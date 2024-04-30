@@ -13,6 +13,9 @@ struct DashboardView: View {
     @FetchRequest(fetchRequest: Application.fetch(), animation: .bouncy)
     var applications: FetchedResults<Application>
     
+    @FetchRequest(fetchRequest: Event.fetch(), animation: .bouncy)
+    var events: FetchedResults<Event>
+    
     // MARK: - Body
     
     var body: some View {
@@ -21,7 +24,7 @@ struct DashboardView: View {
                 if applications.isEmpty{
                     EmptyListView()
                 } else {
-                    RecentApplicationsListView(applications: applications)
+                    RecentApplicationsListView(applications: applications, events: events)
                 }
             }
             .navigationTitle("Applications")
@@ -68,10 +71,11 @@ extension DashboardView {
     struct RecentApplicationsListView: View {
         
         var applications: FetchedResults<Application>
-        
+        var events: FetchedResults<Event>
+
         var body: some View {
             VStack(spacing: 25){
-                UpcomingInterviewsSectionView()
+                UpcomingInterviewsSectionView(events: events)
                 VStack(spacing: 25){
                     HStack{
                         Text("Recent Applications")
@@ -102,6 +106,8 @@ extension DashboardView {
     // MARK: - UpcomingInterviewsSectionView
     struct UpcomingInterviewsSectionView: View {
         
+        var events: FetchedResults<Event>
+
         var body: some View {
             VStack(alignment: .leading, spacing: 15){
                 HStack{
@@ -118,8 +124,9 @@ extension DashboardView {
                 
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack{
-                        ForEach(0..<4){ _ in
-                            UpcomingInterviewCardView()
+                        ForEach(events.prefix(5)){ event in
+                            UpcomingInterviewCardView(event: event)
+                                .frame(width: 200)
                         }
                     }
                     .padding(.horizontal, 20)

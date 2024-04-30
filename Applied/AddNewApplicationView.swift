@@ -79,7 +79,7 @@ struct AddNewApplicationView: View {
     
     private func saveApplication() {
         
-        _ = Application(jobTitle: jobTitle, company: company, location: location, employmentType: employmentType, workMode: workMode, applicationStatus: applicationStatus, dateApplied: dateApplied, note: note, context: managedObjectContext)
+        _ = Application(jobTitle: jobTitle, company: company, location: location, employmentType: employmentType, workMode: workMode, applicationStatus: applicationStatus, dateApplied: dateApplied, note: note, events: [], context: managedObjectContext)
         DataController.shared.save()
         dismiss()
     }

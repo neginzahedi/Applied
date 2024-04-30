@@ -7,12 +7,14 @@
 import SwiftUI
 
 struct UpcomingInterviewCardView: View {
+    @ObservedObject var event: Event
+    
     var body: some View {
         HStack(spacing: 20){
             HStack(spacing: 20){
                 VStack{
-                    Text("Wed")
-                    Text("17")
+                    Text(Utils.dayOfWeek(from: event.startDate_))
+                    Text(Utils.dayOfMonth(from: event.startDate_))
                         .font(.footnote)
                 }
                 Rectangle()
@@ -20,10 +22,10 @@ struct UpcomingInterviewCardView: View {
                     .foregroundColor(Color.black)
             }
             VStack(alignment: .leading){
-                Text("Robinhood")
+                Text(event.title_)
                     .font(.footnote)
                     .multilineTextAlignment(.leading)
-                Text("2 pm - 3 pm")
+                Text("\(Utils.hourIn12HourFormat(from: event.startDate_)) - \(Utils.hourIn12HourFormat(from: event.endDate_))")
                     .foregroundStyle(.secondary)
             }
             Spacer()
@@ -31,7 +33,7 @@ struct UpcomingInterviewCardView: View {
         .font(.caption)
         .bold()
         .padding()
-        .frame(width: 200,height: 80)
+        .frame(height: 80)
         .background(.white)
         .clipShape(
             RoundedRectangle(cornerRadius: 20)
@@ -44,5 +46,5 @@ struct UpcomingInterviewCardView: View {
 }
 
 #Preview {
-    UpcomingInterviewCardView()
+    UpcomingInterviewCardView(event: Event.example)
 }

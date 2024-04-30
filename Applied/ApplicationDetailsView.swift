@@ -10,17 +10,20 @@ struct ApplicationDetailsView: View {
     
     // MARK: - Properties
     
+    @Environment(\.managedObjectContext) var managedObjectContext
+    
     @Environment(\.dismiss) var dismiss
     @ObservedObject var application: Application
     //@State var applicationStatus: String
     @State private var showDeleteConfirmation: Bool = false
     @State private var showStatusConfirmation: Bool = false
+    @State private var showingSheet = false
     
     
     // MARK: - Body
     
     var body: some View {
-        ScrollView{
+        VStack{
             VStack(alignment: .leading, spacing: 20){
                 jobTitleView()
                 Divider()
@@ -47,13 +50,21 @@ struct ApplicationDetailsView: View {
                         Text("There is no upcoming events for this application.")
                             .font(.callout)
                             .foregroundStyle(.secondary)
+                        ScrollView{
+                            VStack{
+                                ForEach(application.events_.sorted(by: { $0.startDate_ < $1.startDate_ }), id:\.id_) { event in
+                                    UpcomingInterviewCardView(event: event)
+                                }
+                            }
+                        }
+                        
                     }
                 }
-                Spacer()
             }
-            .padding(20)
+            .padding(.horizontal,20)
         }
         .scrollIndicators(.hidden)
+        
         
         .confirmationDialog("Change Status", isPresented: $showStatusConfirmation) {
             ForEach(Constants.applicationStatuses, id: \.self) { status in
@@ -86,6 +97,10 @@ struct ApplicationDetailsView: View {
             Text("Are you sure you want to delete \(application.jobTitle ?? "this") application?")
         }
         
+        .sheet(isPresented: $showingSheet) {
+            SheetView(application: application)
+        }
+        
         .navigationTitle("Application Detail")
         .toolbar{
             ToolbarItem(placement: .topBarLeading) {
@@ -98,6 +113,15 @@ struct ApplicationDetailsView: View {
             
             ToolbarItem(placement: .topBarTrailing) {
                 Menu{
+                    Button(action: {
+                        showingSheet.toggle()
+                    }, label: {
+                        HStack{
+                            Text("add event")
+                            Image(systemName: "plus")
+                        }
+                    })
+                    
                     Button(action: {
                         showStatusConfirmation.toggle()
                     }, label: {
@@ -116,7 +140,7 @@ struct ApplicationDetailsView: View {
                         }
                     }
                     
-                    Button(action: {
+                    Button(role: .destructive, action: {
                         showDeleteConfirmation.toggle()
                     }, label: {
                         HStack{
@@ -184,3 +208,51 @@ struct ApplicationDetailsView: View {
     ApplicationDetailsView(application: Application.example)
 }
 
+
+struct SheetView: View {
+    @Environment(\.dismiss) var dismiss
+    
+    @State private var eventTitle: String = ""
+    @State private var startDate: Date = Date()
+    @State private var EndDate: Date = Date()
+    @State private var note: String = ""
+    
+    @Environment(\.managedObjectContext) var managedObjectContext
+    
+    @ObservedObject var application: Application
+
+    var body: some View {
+        NavigationStack{
+            VStack(spacing: 20){
+                TextFieldWithTitle(title: "Title", placeholder: "Enter event title (required)", text: $eventTitle)
+                DatePicker("Start Date", selection: $startDate)
+                    .bold()
+                DatePicker("End Date", selection: $EndDate, in: startDate...)
+                    .bold()
+                CharacterLimitedTextEditor(text: $note, characterLimit: 100)
+                    .modifier(RoundedRectangleModifier(cornerRadius: 10))
+            }
+            .padding()
+            .navigationTitle("Create Event")
+            .navigationBarTitleDisplayMode(.inline)
+            
+            .toolbar(content: {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("Cancel") {
+                        dismiss()
+                    }
+                }
+                
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Add") {
+                        // TODO: ADD new event
+                        let newEvent = Event(title: eventTitle, endDate: EndDate, startDate: startDate, note: note, context: managedObjectContext)
+                        application.addToEvents(newEvent)
+                        DataController.shared.save()
+                        dismiss()
+                    }
+                }
+            })
+        }
+    }
+}
