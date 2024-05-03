@@ -7,6 +7,7 @@ import SwiftUI
 
 struct RoundedRectangleModifier: ViewModifier {
     var cornerRadius : CGFloat
+    
     func body(content: Content) -> some View {
         content
             .padding(10)

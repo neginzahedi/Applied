@@ -87,8 +87,7 @@ struct StatusView: View {
             .font(.caption)
             .modifier(RoundedRectangleModifier(cornerRadius: 10))
             .foregroundColor(isSelected ? .white : .black)
-            .background(isSelected ?                                         Color(.black)
-                        : Color.white)
+            .background(isSelected ? Color(.black) : Color.white)
             .clipShape(RoundedRectangle(cornerRadius: 10))
             .padding(2)
     }

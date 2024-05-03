@@ -22,14 +22,9 @@ extension Event {
         set { title = newValue }
     }
     
-    var startDate_: Date {
-        get { startDate ?? Date() }
-        set { startDate = newValue }
-    }
-    
-    var endDate_: Date {
-        get { endDate ?? Date() }
-        set { endDate = newValue }
+    var dueDate_: Date {
+        get { dueDate ?? Date() }
+        set { dueDate = newValue }
     }
     
     var note_: String{
@@ -37,11 +32,10 @@ extension Event {
         set { note = newValue }
     }
     
-    convenience init(title: String, endDate: Date, startDate: Date, note: String, context: NSManagedObjectContext ) {
+    convenience init(title: String, dueDate: Date, note: String, context: NSManagedObjectContext ) {
         self.init(context: context)
         self.title_ = title
-        self.startDate_ = startDate
-        self.endDate_ = endDate
+        self.dueDate_ = dueDate
         self.note_ = note
     }
     
@@ -57,7 +51,7 @@ extension Event {
     
     static func fetch(_ predicate: NSPredicate = .all) -> NSFetchRequest<Event> {
         let request = Event.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \Event.startDate, ascending: false),NSSortDescriptor(keyPath: \Event.title, ascending: false)]
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \Event.dueDate, ascending: false),NSSortDescriptor(keyPath: \Event.title, ascending: false)]
         request.predicate = predicate
         return request
     }
@@ -66,7 +60,7 @@ extension Event {
     static var example: Event {
         let context = DataController.preview.container.viewContext
         
-        let event = Event(title: "First Interview with HR", endDate: Date(), startDate: Date(), note: "", context: context)
+        let event = Event(title: "First Interview with HR", dueDate: Date(), note: "", context: context)
         
         return event
     }

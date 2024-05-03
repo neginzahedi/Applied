@@ -13,9 +13,6 @@ struct DashboardView: View {
     @FetchRequest(fetchRequest: Application.fetch(), animation: .bouncy)
     var applications: FetchedResults<Application>
     
-    @FetchRequest(fetchRequest: Event.fetch(), animation: .bouncy)
-    var events: FetchedResults<Event>
-    
     // MARK: - Body
     
     var body: some View {
@@ -24,7 +21,10 @@ struct DashboardView: View {
                 if applications.isEmpty{
                     EmptyListView()
                 } else {
-                    RecentApplicationsListView(applications: applications, events: events)
+                    VStack(spacing: 25){
+                        CalendarView()
+                        RecentApplicationsListView(applications: applications)
+                    }
                 }
             }
             .navigationTitle("Applications")
@@ -71,68 +71,31 @@ extension DashboardView {
     struct RecentApplicationsListView: View {
         
         var applications: FetchedResults<Application>
-        var events: FetchedResults<Event>
-
-        var body: some View {
-            VStack(spacing: 25){
-                UpcomingInterviewsSectionView(events: events)
-                VStack(spacing: 25){
-                    HStack{
-                        Text("Recent Applications")
-                            .bold()
-                        Spacer()
-                        NavigationLink(destination: ApplicationsView(applications: applications)) {
-                            Text("See All")
-                                .font(.footnote)
-                        }
-                    }
-                    .padding(.horizontal, 20)
-                    
-                    ScrollView(.vertical) {
-                        ForEach(applications.prefix(5)) { application in
-                            NavigationLink {
-                                ApplicationDetailsView(application: application)
-                            } label: {
-                                ApplicationCardView(application: application)
-                            }
-                        }
-                    }
-                    
-                }
-            }
-        }
-    }
-    
-    // MARK: - UpcomingInterviewsSectionView
-    struct UpcomingInterviewsSectionView: View {
         
-        var events: FetchedResults<Event>
-
         var body: some View {
-            VStack(alignment: .leading, spacing: 15){
+            
+            VStack(spacing: 25){
                 HStack{
-                    Text("Upcoming Interviews")
+                    Text("Recent Applications")
                         .bold()
                     Spacer()
-                    // TODO: - display all events
-                    NavigationLink(destination: EmptyView()) {
+                    NavigationLink(destination: ApplicationsView(applications: applications)) {
                         Text("See All")
                             .font(.footnote)
                     }
                 }
                 .padding(.horizontal, 20)
                 
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack{
-                        ForEach(events.prefix(5)){ event in
-                            UpcomingInterviewCardView(event: event)
-                                .frame(width: 200)
+                ScrollView(.vertical) {
+                    ForEach(applications.prefix(5)) { application in
+                        NavigationLink {
+                            ApplicationDetailsView(application: application)
+                        } label: {
+                            ApplicationCardView(application: application)
                         }
                     }
-                    .padding(.horizontal, 20)
                 }
             }
-            .padding(.top,20)
         }
     }
 }

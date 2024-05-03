@@ -13,8 +13,8 @@ struct UpcomingInterviewCardView: View {
         HStack(spacing: 20){
             HStack(spacing: 20){
                 VStack{
-                    Text(Utils.dayOfWeek(from: event.startDate_))
-                    Text(Utils.dayOfMonth(from: event.startDate_))
+                    Text(Utils.dayOfWeek(from: event.dueDate_))
+                    Text(Utils.dayOfMonth(from: event.dueDate_))
                         .font(.footnote)
                 }
                 Rectangle()
@@ -25,7 +25,7 @@ struct UpcomingInterviewCardView: View {
                 Text(event.title_)
                     .font(.footnote)
                     .multilineTextAlignment(.leading)
-                Text("\(Utils.hourIn12HourFormat(from: event.startDate_)) - \(Utils.hourIn12HourFormat(from: event.endDate_))")
+                Text("\(Utils.hourIn12HourFormat(from: event.dueDate_))")
                     .foregroundStyle(.secondary)
             }
             Spacer()

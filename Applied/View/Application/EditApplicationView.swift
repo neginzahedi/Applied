@@ -49,7 +49,7 @@ struct EditApplicationView: View {
         .toolbar{
             ToolbarItem(placement: .topBarLeading) {
                 Button(action: {
-                    DataController.shared.save()
+                    //DataController.shared.save()
                     dismiss()
                 }, label: {
                     Image(systemName: "arrow.backward")
