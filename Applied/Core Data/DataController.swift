@@ -28,28 +28,39 @@ class DataController: ObservableObject{
     
     func save() {
         let context = container.viewContext
-        
-        guard context.hasChanges else { return }
-        
-        do {
-            try context.save()
-        } catch {
-            print("error saving context: \(error)")
+        context.perform {
+            guard context.hasChanges else { return }
+            
+            do {
+                print("Changes to Core Data saved.")
+                try context.save()
+            } catch {
+                print("Error saving context: \(error)")
+            }
         }
     }
     
-    func deleteAllData() {
+    func deleteAllEventsData() {
         let fetchRequest: NSFetchRequest<NSFetchRequestResult> = Event.fetchRequest()
         let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
         
         do {
-            // Perform the batch delete
             try container.viewContext.execute(batchDeleteRequest)
-            // Save the context to persist the changes
             try container.viewContext.save()
         } catch {
-            // Handle the error appropriately
-            print("Error deleting all data: \(error.localizedDescription)")
+            print("Error deleting events data: \(error.localizedDescription)")
+        }
+    }
+    
+    func deleteAllApplicationstData() {
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = Application.fetchRequest()
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        
+        do {
+            try container.viewContext.execute(batchDeleteRequest)
+            try container.viewContext.save()
+        } catch {
+            print("Error deleting applications data: \(error.localizedDescription)")
         }
     }
     

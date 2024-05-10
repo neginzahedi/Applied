@@ -35,10 +35,9 @@ struct ApplicationDetailsView: View {
                 upcomingScheduleView()
             }
             .padding(.horizontal,20)
+            .padding(.top, 20)
             Spacer()
         }
-        .scrollIndicators(.hidden)
-        
         // MARK: - Confirmation Dialog
         .confirmationDialog("Change Status", isPresented: $showStatusConfirmationDialog) {
             ForEach(Constants.applicationStatuses, id: \.self) { status in
@@ -178,19 +177,19 @@ struct ApplicationDetailsView: View {
     }
     
     private func upcomingScheduleView() -> some View {
-            VStack(alignment: .leading){
-                HStack{
-                    Text("Upcoming Schedule")
-                        .font(.headline)
-                    Spacer()
-                    Button {
-                        showCreateEventSheet.toggle()
-                    } label: {
-                        Image(systemName: "calendar.badge.plus")
-                    }
-                    
+        VStack(alignment: .leading){
+            HStack{
+                Text("Upcoming Schedule")
+                    .font(.headline)
+                Spacer()
+                Button {
+                    showCreateEventSheet.toggle()
+                } label: {
+                    Image(systemName: "calendar.badge.plus")
                 }
-                ScrollView{
+                
+            }
+            ScrollView{
                 VStack{
                     if application.events_.isEmpty {
                         Text("There is no upcoming events for this application.")

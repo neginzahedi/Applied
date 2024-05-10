@@ -84,7 +84,8 @@ struct ApplicationCardView: View {
     private var jobInfoView: some View {
         VStack(alignment:.leading){
             Text(application.jobTitle ?? "Job Title")
-                .font(.subheadline)
+                .font(.headline)
+                .multilineTextAlignment(.leading)
                 .bold()
             Text("\(String(describing: application.company ?? "Company"))")
                 .font(.subheadline)
@@ -94,19 +95,13 @@ struct ApplicationCardView: View {
     
     private var dateAppliedView: some View {
         HStack{
+            Spacer()
+            
             HStack {
-                Image(systemName: "calendar")
                 Text("\(Utils.formatDateToMonthDayYear(application.dateApplied ?? Date()))")
             }
+            .foregroundStyle(.secondary)
             .font(.footnote)
-            
-            Spacer()
-            Button {
-                // TODO: Bookmark
-            } label: {
-                Image(systemName: "bookmark")
-            }
-            
         }
     }
 }

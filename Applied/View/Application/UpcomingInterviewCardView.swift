@@ -2,12 +2,14 @@
 //  UpcomingInterviewCardView.swift
 //  Applied
 //
-// TODO: replace default values with real user added values from core data
 
 import SwiftUI
 
 struct UpcomingInterviewCardView: View {
+    
     @ObservedObject var event: Event
+    
+    @State private var showDeleteConfirmationDialog: Bool = false
     
     var body: some View {
         HStack(spacing: 10){
@@ -37,24 +39,14 @@ struct UpcomingInterviewCardView: View {
                     .bold()
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-
+            
             VStack(alignment: .trailing){
-                Menu {
-                    Button(role: .destructive,action: {
-                        Event.delete(event: event)
-                    }, label: {
-                        Text("Delete")
-                    })
-                    Button(action: {
-                        print("")
-                    }, label: {
-                        Text("Edit")
-                    })
-                    
-                } label: {
-                    Image(systemName: "ellipsis")
-                }
                 Spacer()
+                Button {
+                    self.showDeleteConfirmationDialog.toggle()
+                } label: {
+                    Image(systemName:"trash")
+                }
             }
         }
         .font(.caption)
@@ -69,6 +61,19 @@ struct UpcomingInterviewCardView: View {
             RoundedRectangle(cornerRadius: 20)
                 .stroke(.black.opacity(0.1), lineWidth: 1)
         )
+        
+        .confirmationDialog("Delete Event",
+                            isPresented: $showDeleteConfirmationDialog,
+                            titleVisibility: .visible) {
+            Button(role: .destructive) {
+                Event.delete(event: event)
+            } label: {
+                Text("Delete")
+            }
+        } message: {
+            Text("Are you sure you want to delete this event?")
+        }
+        
     }
 }
 

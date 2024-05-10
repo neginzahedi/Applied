@@ -22,7 +22,7 @@ struct AppliedApp: App {
                 .onChange(of: scenePhase) { _, newValue in
                     switch newValue {
                     case .background, .inactive:
-                        // Call your save action here
+                        // save core data changes
                         DataController.shared.save()
                     default:
                         break
