@@ -96,7 +96,7 @@ extension Application {
     static var example: Application {
         let context = DataController.preview.container.viewContext
         
-        let application = Application(jobTitle: "iOS Developer", company: "Google", location: "Toronto, ON", employmentType: Constants.employmentTypes[0], workMode: Constants.workModes[0], applicationStatus: Constants.applicationStatuses[0], dateApplied: Date(), note: "no note", events: [Event(title: "Interview with HR", dueDate: Date(), note: "some note", context: context)], context: context)
+        let application = Application(jobTitle: "iOS Developer", company: "Google", location: "Toronto, ON", employmentType: Constants.employmentTypes[0], workMode: Constants.workModes[0], applicationStatus: Constants.applicationStatuses[0], dateApplied: Date(), note: "no note", events: [Event(title: "Interview with HR", dueDate: Date(), context: context)], context: context)
         
         return application
     }

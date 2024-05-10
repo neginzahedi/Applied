@@ -58,7 +58,6 @@ struct ApplicationDetailsView: View {
                             titleVisibility: .visible) {
             Button(role: .destructive) {
                 Application.delete(application: application)
-                //DataController.shared.save()
                 dismiss()
             } label: {
                 Text("Delete")
@@ -179,30 +178,28 @@ struct ApplicationDetailsView: View {
     }
     
     private func upcomingScheduleView() -> some View {
-        VStack(alignment: .leading){
-            HStack{
-                Text("Upcoming Schedule")
-                    .font(.headline)
-                Spacer()
-                Button {
-                    showCreateEventSheet.toggle()
-                } label: {
-                    Image(systemName: "calendar.badge.plus")
+            VStack(alignment: .leading){
+                HStack{
+                    Text("Upcoming Schedule")
+                        .font(.headline)
+                    Spacer()
+                    Button {
+                        showCreateEventSheet.toggle()
+                    } label: {
+                        Image(systemName: "calendar.badge.plus")
+                    }
+                    
                 }
-                
-            }
-            VStack{
-                if application.events_.isEmpty {
-                    Text("There is no upcoming events for this application.")
-                        .font(.callout)
-                        .foregroundStyle(.secondary)
-                } else {
-                    ScrollView{
-                        VStack{
-                            let events = application.events_.sorted{$0.dueDate_ < $1.dueDate_}
-                            ForEach(events) { event in
-                                UpcomingInterviewCardView(event: event)
-                            }
+                ScrollView{
+                VStack{
+                    if application.events_.isEmpty {
+                        Text("There is no upcoming events for this application.")
+                            .font(.callout)
+                            .foregroundStyle(.secondary)
+                    } else {
+                        let events = application.events_.sorted{$0.dueDate_ < $1.dueDate_}
+                        ForEach(events){ event in
+                            UpcomingInterviewCardView(event: event)
                         }
                     }
                 }

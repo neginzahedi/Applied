@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22757" systemVersion="23C71" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22757" systemVersion="23E224" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
     <entity name="Application" representedClassName="Application" syncable="YES" codeGenerationType="class">
         <attribute name="applicationStatus" optional="YES" attributeType="String" defaultValueString=""/>
         <attribute name="company" optional="YES" attributeType="String" defaultValueString=""/>
@@ -10,12 +10,11 @@
         <attribute name="location" optional="YES" attributeType="String" defaultValueString=""/>
         <attribute name="note" optional="YES" attributeType="String" defaultValueString=""/>
         <attribute name="workMode" optional="YES" attributeType="String" defaultValueString=""/>
-        <relationship name="events" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Event" inverseName="application" inverseEntity="Event"/>
+        <relationship name="events" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Event" inverseName="application" inverseEntity="Event"/>
     </entity>
     <entity name="Event" representedClassName="Event" syncable="YES" codeGenerationType="class">
         <attribute name="dueDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="note" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <relationship name="application" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Application" inverseName="events" inverseEntity="Application"/>
     </entity>

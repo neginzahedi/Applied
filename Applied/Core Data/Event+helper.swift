@@ -27,16 +27,10 @@ extension Event {
         set { dueDate = newValue }
     }
     
-    var note_: String{
-        get { note ?? "" }
-        set { note = newValue }
-    }
-    
-    convenience init(title: String, dueDate: Date, note: String, context: NSManagedObjectContext ) {
+    convenience init(title: String, dueDate: Date, context: NSManagedObjectContext ) {
         self.init(context: context)
         self.title_ = title
         self.dueDate_ = dueDate
-        self.note_ = note
     }
     
     // called when new object created
@@ -60,7 +54,7 @@ extension Event {
     static var example: Event {
         let context = DataController.preview.container.viewContext
         
-        let event = Event(title: "First Interview with HR", dueDate: Date(), note: "", context: context)
+        let event = Event(title: "First Interview with HR", dueDate: Date(), context: context)
         
         return event
     }

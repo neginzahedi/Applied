@@ -26,7 +26,7 @@ struct Utils {
     
     static func hourIn12HourFormat(from date: Date) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "h a" // Use "h a" for the hour in 12-hour format with "am" or "pm"
+        dateFormatter.dateFormat = "h:m a" // Use "h a" for the hour in 12-hour format with "am" or "pm"
         return dateFormatter.string(from: date)
     }
     

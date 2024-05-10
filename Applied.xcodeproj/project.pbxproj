@@ -190,7 +190,6 @@
 				0F33D21E2BC4A7810017D072 /* IntroView.swift */,
 				0F5581192BD06D1600BC011F /* ApplicationsView.swift */,
 				0FDA54892BE184220060C298 /* CreateEventSheet.swift */,
-				0F5581172BD06AC200BC011F /* UpcomingInterviewCardView.swift */,
 				0F2CC9D72BC072B10036F5B8 /* CharacterLimitedTextEditor.swift */,
 				0F69C8FA2BCC536800663655 /* ViewModifiers.swift */,
 			);
@@ -212,6 +211,7 @@
 				0FDCB4CF2BB47C7F00423576 /* AddNewApplicationView.swift */,
 				0F7E8D662BD7174C00138849 /* EditApplicationView.swift */,
 				0FDCB4D12BB4C8C900423576 /* ApplicationDetailsView.swift */,
+				0F5581172BD06AC200BC011F /* UpcomingInterviewCardView.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";

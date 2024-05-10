@@ -97,6 +97,9 @@ struct TextFieldWithTitle: View {
             Text(title).bold()
             TextField(placeholder, text: $text)
                 .modifier(RoundedRectangleModifier(cornerRadius: 10))
+                .keyboardType(.default)
+                .submitLabel(.done)
+
         }
     }
 }

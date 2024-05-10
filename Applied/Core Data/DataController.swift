@@ -38,13 +38,28 @@ class DataController: ObservableObject{
         }
     }
     
+    func deleteAllData() {
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = Event.fetchRequest()
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        
+        do {
+            // Perform the batch delete
+            try container.viewContext.execute(batchDeleteRequest)
+            // Save the context to persist the changes
+            try container.viewContext.save()
+        } catch {
+            // Handle the error appropriately
+            print("Error deleting all data: \(error.localizedDescription)")
+        }
+    }
+    
     // MARK: - SwiftUI preview helper
     static var preview: DataController = {
         let controller = DataController()
         let context = controller.container.viewContext
         
         for index in 0..<10 {
-            let application = Application(jobTitle: "iOS Developer", company: "Google", location: "Toronto, ON", employmentType: Constants.employmentTypes[0], workMode: Constants.workModes[0], applicationStatus: Constants.applicationStatuses[0], dateApplied: Date(), note: "no note", events: [Event(title: "", dueDate: Date(), note: "", context: context)], context: context)
+            let application = Application(jobTitle: "iOS Developer", company: "Google", location: "Toronto, ON", employmentType: Constants.employmentTypes[0], workMode: Constants.workModes[0], applicationStatus: Constants.applicationStatuses[0], dateApplied: Date(), note: "no note", events: [Event(title: "", dueDate: Date(), context: context)], context: context)
         }
         return controller
     }()

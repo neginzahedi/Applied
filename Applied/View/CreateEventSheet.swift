@@ -14,7 +14,6 @@ struct CreateEventSheet: View {
     
     @State private var eventTitle: String = ""
     @State private var dueDate: Date = Date()
-    @State private var note: String = ""
     
     var body: some View {
         NavigationStack{
@@ -22,23 +21,17 @@ struct CreateEventSheet: View {
                 VStack(alignment: .center,spacing: 30){
                     TextFieldWithTitle(title: "Title", placeholder: "Enter event's title (required)", text: $eventTitle)
                         .onChange(of: eventTitle) {
-                            if eventTitle.count > 40 {
+                            if eventTitle.count > 100 {
                                 // Truncate the text to the character limit
-                                eventTitle = String(eventTitle.prefix(40))
+                                eventTitle = String(eventTitle.prefix(100))
                             }
                         }
                     VStack(alignment: .leading){
-                        DatePicker("Date", selection: $dueDate)
+                        Text("Date")
                             .bold()
+                        DatePicker("Date", selection: $dueDate, in: Date()...)
+                            .datePickerStyle(.graphical)
                     }
-                    
-                    VStack(alignment: .leading){
-                        Text("Note")
-                            .bold()
-                        CharacterLimitedTextEditor(text: $note, characterLimit: 255)
-                            .modifier(RoundedRectangleModifier(cornerRadius: 10))
-                    }
-                    
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 20)
@@ -55,9 +48,8 @@ struct CreateEventSheet: View {
                 
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Add") {
-                        let newEvent = Event(title: eventTitle, dueDate: dueDate, note: note, context: managedObjectContext)
+                        let newEvent = Event(title: eventTitle, dueDate: dueDate, context: managedObjectContext)
                         application.addToEvents(newEvent)
-                        //DataController.shared.save()
                         dismiss()
                     }
                     .disabled(eventTitle.isEmpty)
