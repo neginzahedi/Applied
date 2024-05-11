@@ -146,7 +146,7 @@ struct ApplicationDetailsView: View {
                 infoView(icon: "briefcase", title: "Employment Type", text: application.employmentType_ + " - " + application.workMode_)
             }
             HStack{
-                infoView(icon: "calendar", title: "Date Applied", text: DateFormatters.monthDayYearFormatter.string(from:application.dateApplied_))
+                infoView(icon: "calendar", title: "Date Applied", text: DateUtils.monthDayYearFormatter.string(from:application.dateApplied_))
                 infoView(icon: "folder.badge.questionmark", title: "Application's Status", text: application.applicationStatus_)
             }
         }
@@ -189,15 +189,19 @@ struct ApplicationDetailsView: View {
                 }
                 
             }
-            ScrollView{
-                VStack{
-                    if application.events_.isEmpty {
-                        Text("There is no upcoming events for this application.")
+            ScrollView {
+                VStack {
+                    let currentDate = Date()
+                    let events = application.events_
+                        .filter { $0.dueDate_ >= currentDate } // Filter events that are not from the past
+                        .sorted { $0.dueDate_ < $1.dueDate_ } // Sort remaining events by due date
+                    
+                    if events.isEmpty {
+                        Text("There are no upcoming events for this application.")
                             .font(.callout)
                             .foregroundStyle(.secondary)
                     } else {
-                        let events = application.events_.sorted{$0.dueDate_ < $1.dueDate_}
-                        ForEach(events){ event in
+                        ForEach(events) { event in
                             UpcomingInterviewCardView(event: event)
                         }
                     }

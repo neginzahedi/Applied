@@ -14,17 +14,19 @@ struct DateEventsView: View {
     
     var body: some View {
         
-        let matchingEvents = events.filter { Calendar.current.isDate($0.dueDate_, inSameDayAs: date) }
+        let matchingEvents = events
+            .filter { Calendar.current.isDate($0.dueDate_, inSameDayAs: date)}
+            .filter {$0.dueDate_ > Date() }
         
         VStack(alignment: .leading) {
             VStack(alignment: .leading, spacing: 20){
                 HStack{
-                    Text(DateFormatters.monthDayYearFormatter.string(from: date))
+                    Text(DateUtils.monthDayYearFormatter.string(from: date))
                         .font(.headline)
                     Spacer()
                 }
                 if matchingEvents.isEmpty {
-                    Text("There is no event for this date.")
+                    Text("There are no upcoming events for this date.")
                         .foregroundStyle(.secondary)
                 } else {
                     ScrollView{
@@ -33,7 +35,7 @@ struct DateEventsView: View {
                                 HStack(spacing: 10){
                                     // Date
                                     HStack(spacing: 20){
-                                        Text(DateFormatters.twelveHourFormatFormatter.string(from: event.dueDate_))
+                                        Text(DateUtils.twelveHourFormatFormatter.string(from: event.dueDate_))
                                         Rectangle()
                                             .frame(width: 3, height: 50)
                                             .foregroundColor(Color.black)

@@ -98,7 +98,7 @@ struct ApplicationCardView: View {
             Spacer()
             
             HStack {
-                Text(DateFormatters.monthDayYearFormatter.string(from: application.dateApplied_))
+                Text(DateUtils.monthDayYearFormatter.string(from: application.dateApplied_))
             }
             .foregroundStyle(.secondary)
             .font(.footnote)

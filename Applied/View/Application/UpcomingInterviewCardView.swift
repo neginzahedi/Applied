@@ -16,9 +16,9 @@ struct UpcomingInterviewCardView: View {
             // Date
             HStack(spacing: 20){
                 VStack{
-                    Text(DateFormatters.abbreviatedDayOfWeekFormatter.string(from: event.dueDate_))
+                    Text(DateUtils.abbreviatedDayOfWeekFormatter.string(from: event.dueDate_))
                         .font(.caption)
-                    Text(DateFormatters.dayOfMonthFormatter.string(from: event.dueDate_))
+                    Text(DateUtils.dayOfMonthFormatter.string(from: event.dueDate_))
                         .font(.headline)
                         .bold()
                 }
@@ -34,7 +34,7 @@ struct UpcomingInterviewCardView: View {
                     .font(.footnote)
                     .multilineTextAlignment(.leading)
                     .bold()
-                Text(DateFormatters.twelveHourFormatFormatter.string(from: event.dueDate_))
+                Text(DateUtils.twelveHourFormatFormatter.string(from: event.dueDate_))
                     .foregroundStyle(.secondary)
                     .bold()
             }

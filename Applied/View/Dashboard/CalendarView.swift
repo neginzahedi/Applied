@@ -7,47 +7,21 @@ import SwiftUI
 
 struct CalendarView: View {
     
+    // MARK: - Properties
+    
     @State private var selectedDate = Date()
     
-   
-    
-    @State private var events: [Event] = [] // Sample events
-    
+    // MARK: - Body
     
     var body: some View {
         VStack(spacing: 0){
-            HStack {
-                Button(action: {
-                    self.selectedDate = Calendar.current.date(byAdding: .month, value: -1, to: self.selectedDate)!
-                }) {
-                    Image(systemName: "chevron.left")
-                        .opacity(isPreviousButtonDisabled ? 0.5 : 1.0)
-                }
-                .disabled(isPreviousButtonDisabled)
-                
-                HStack{
-                    Text(DateFormatters.monthFormatter.string(from: selectedDate))
-                        .font(.title3)
-                        .bold()
-                    Text(DateFormatters.yearFormatter.string(from: selectedDate))
-                        .font(.footnote)
-                }
-                Spacer()
-                
-                Button(action: {
-                    self.selectedDate = Calendar.current.date(byAdding: .month, value: 1, to: self.selectedDate)!
-                }) {
-                    Image(systemName: "chevron.right")
-                }
-            }
-            .padding(.top,20)
-            .padding(.horizontal,20)
-
+            // Month and Year Header
+            MonthYearHeader(selectedDate: $selectedDate)
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 20) {
-                    ForEach(getDaysInMonth(date: selectedDate), id: \.self) { day in
-                        NavigationLink(destination: DateEventsView(date: day)) {
-                            CardView(day: day)
+                    ForEach(DateUtils.getDaysInMonth(date: selectedDate), id: \.self) { date in
+                        NavigationLink(destination: DateEventsView(date: date)) {
+                            DayCardView(day: date)
                         }
                     }
                 }
@@ -65,31 +39,57 @@ struct CalendarView: View {
         
         return selectedMonth == currentMonth && selectedDay <= currentDay
     }
-    
-    func getDaysInMonth(date: Date) -> [Date] {
-        let calendar = Calendar.current
-        let currentDate = calendar.startOfDay(for: Date())
-        let firstDayOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: date))!
-        var days: [Date] = []
-        
-        if currentDate >= firstDayOfMonth {
-            // If current date is after or equal to the first day of the month, start from current date
-            let range = calendar.range(of: .day, in: .month, for: date)!
-            let startingDay = calendar.component(.day, from: currentDate)
-            days = (startingDay..<range.upperBound).compactMap { calendar.date(bySetting: .day, value: $0, of: date) }
-        } else {
-            // If current date is before the first day of the month, start from the first day of the month
-            let range = calendar.range(of: .day, in: .month, for: firstDayOfMonth)!
-            days = range.map { calendar.date(bySetting: .day, value: $0, of: firstDayOfMonth)! }
-        }
-        
-        return days
-    }
-    
-    
 }
 
-struct CardView: View {
+// MARK: - Subviews
+
+// MARK: - Month and Year Header View
+struct MonthYearHeader: View {
+    @Binding var selectedDate: Date
+    
+    var body: some View {
+        HStack {
+            Button(action: {
+                self.selectedDate = Calendar.current.date(byAdding: .month, value: -1, to: self.selectedDate)!
+            }) {
+                Image(systemName: "chevron.left")
+                    .opacity(isPreviousButtonDisabled ? 0.5 : 1.0)
+            }
+            .disabled(isPreviousButtonDisabled)
+            
+            HStack{
+                Text(DateUtils.monthFormatter.string(from: selectedDate))
+                    .font(.title3)
+                    .bold()
+                Text(DateUtils.yearFormatter.string(from: selectedDate))
+                    .font(.footnote)
+            }
+            Spacer()
+            
+            Button(action: {
+                self.selectedDate = Calendar.current.date(byAdding: .month, value: 1, to: self.selectedDate)!
+            }) {
+                Image(systemName: "chevron.right")
+            }
+        }
+        .padding(.top, 20)
+        .padding(.horizontal, 20)
+    }
+    
+    private var isPreviousButtonDisabled: Bool {
+        let currentDate = Calendar.current.startOfDay(for: Date())
+        let currentMonth = Calendar.current.component(.month, from: currentDate)
+        let currentDay = Calendar.current.component(.day, from: currentDate)
+        let selectedMonth = Calendar.current.component(.month, from: selectedDate)
+        let selectedDay = Calendar.current.component(.day, from: selectedDate)
+        
+        return selectedMonth == currentMonth && selectedDay <= currentDay
+    }
+}
+
+// MARK: - Day Card View
+
+struct DayCardView: View {
     
     let day: Date
     
@@ -100,13 +100,16 @@ struct CardView: View {
     
     var body: some View {
         
-        let matchingEvents = events.filter { Calendar.current.isDate($0.dueDate_, inSameDayAs: day) }
+        let matchingEvents = events
+            .filter { Calendar.current.isDate($0.dueDate_, inSameDayAs: day) }
+            .filter {$0.dueDate_ > Date() }
+        
         let hasEvent = !matchingEvents.isEmpty
         
         ZStack{
             VStack(spacing: 10){
-                Text(DateFormatters.abbreviatedDayOfWeekFormatter.string(from: day))
-                Text(DateFormatters.dayOfMonthFormatter.string(from: day))
+                Text(DateUtils.abbreviatedDayOfWeekFormatter.string(from: day))
+                Text(DateUtils.dayOfMonthFormatter.string(from: day))
             }
             .font(.callout)
             .bold()
