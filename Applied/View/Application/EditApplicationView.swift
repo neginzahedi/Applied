@@ -14,6 +14,30 @@ struct EditApplicationView: View {
     
     @ObservedObject var application : Application
     
+    @State private var editedJobTitle: String
+    @State private var editedCompany: String
+    @State private var editedLocation: String
+    @State private var editedEmploymentType: String
+    @State private var editedWorkMode: String
+    @State private var editedApplicationStatus: String
+    @State private var editedDateApplied: Date
+    @State private var editedNote: String
+    
+    // MARK: - Initialization
+    
+    init(application: Application) {
+        self.application = application
+        
+        _editedJobTitle = State(initialValue: application.jobTitle_)
+        _editedCompany = State(initialValue: application.company_)
+        _editedLocation = State(initialValue: application.location_)
+        _editedEmploymentType = State(initialValue: application.employmentType_)
+        _editedWorkMode = State(initialValue: application.workMode_)
+        _editedApplicationStatus = State(initialValue: application.applicationStatus_)
+        _editedDateApplied = State(initialValue: application.dateApplied_)
+        _editedNote = State(initialValue: application.note_)
+    }
+    
     // MARK: - Body
     
     var body: some View {
@@ -21,18 +45,18 @@ struct EditApplicationView: View {
             VStack(alignment: .leading){
                 VStack(spacing: 20){
                     
-                    TextFieldWithTitle(title: "Job title", placeholder: "Enter job title (required)", text:$application.jobTitle_)
-                    TextFieldWithTitle(title: "Company", placeholder: "Enter company name (required)", text: $application.company_)
-                    TextFieldWithTitle(title: "Location", placeholder: "Enter location (e.g., city, province)", text: $application.location_)
+                    TextFieldWithTitle(title: "Job title", placeholder: "Enter job title (required)", text:$editedJobTitle)
+                    TextFieldWithTitle(title: "Company", placeholder: "Enter company name (required)", text: $editedCompany)
+                    TextFieldWithTitle(title: "Location", placeholder: "Enter location (e.g., city, province)", text: $editedLocation)
                     
-                    PickerWithTitle(title: "Employment Type", selection: $application.employmentType_, options: Constants.employmentTypes)
-                    PickerWithTitle(title: "Work Mode", selection: $application.workMode_, options: Constants.workModes)
-                    PickerWithTitle(title: "Application Status", selection: $application.applicationStatus_, options: Constants.applicationStatuses)
+                    PickerWithTitle(title: "Employment Type", selection: $editedEmploymentType, options: Constants.employmentTypes)
+                    PickerWithTitle(title: "Work Mode", selection: $editedWorkMode, options: Constants.workModes)
+                    PickerWithTitle(title: "Application Status", selection: $editedApplicationStatus, options: Constants.applicationStatuses)
                     
-                    DatePicker("Date Applied", selection: $application.dateApplied_, in: ...Date(), displayedComponents: [.date])
+                    DatePicker("Date Applied", selection: $editedDateApplied, in: ...Date(), displayedComponents: [.date])
                         .bold()
                     
-                    CharacterLimitedTextEditor(text: $application.note_, characterLimit: 255)
+                    CharacterLimitedTextEditor(text: $editedNote, characterLimit: 255)
                         .modifier(RoundedRectangleModifier(cornerRadius: 10))
                     
                     
@@ -49,13 +73,38 @@ struct EditApplicationView: View {
         .toolbar{
             ToolbarItem(placement: .topBarLeading) {
                 Button(action: {
-                    //DataController.shared.save()
                     dismiss()
                 }, label: {
                     Image(systemName: "arrow.backward")
                 })
             }
+            
+            ToolbarItem(placement: .topBarTrailing) {
+                Button("Save") {
+                    saveApplication()
+                }
+                .disabled(editedJobTitle.isEmpty || editedCompany.isEmpty)
+            }
         }
         .navigationBarBackButtonHidden()
+    }
+    
+    private func saveApplication(){
+        application.jobTitle_ = editedJobTitle
+        application.company_ = editedCompany
+        application.location_ = editedLocation
+        application.employmentType_ = editedEmploymentType
+        application.workMode_ = editedWorkMode
+        application.applicationStatus_ = editedApplicationStatus
+        application.dateApplied_ = editedDateApplied
+        application.note_ = editedNote
+        
+        do {
+            try managedObjectContext.save()
+            dismiss()
+        } catch {
+            // Handle error
+            print("Error saving application: \(error.localizedDescription)")
+        }
     }
 }
