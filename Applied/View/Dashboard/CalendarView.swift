@@ -26,10 +26,10 @@ struct CalendarView: View {
                 .disabled(isPreviousButtonDisabled)
                 
                 HStack{
-                    Text(Utils.month.string(from: selectedDate))
+                    Text(DateFormatters.monthFormatter.string(from: selectedDate))
                         .font(.title3)
                         .bold()
-                    Text(Utils.year.string(from: selectedDate))
+                    Text(DateFormatters.yearFormatter.string(from: selectedDate))
                         .font(.footnote)
                 }
                 Spacer()
@@ -105,8 +105,8 @@ struct CardView: View {
         
         ZStack{
             VStack(spacing: 10){
-                Text(Utils.dayOfWeek.string(from: day))
-                Text(Utils.dayOfMonth.string(from: day))
+                Text(DateFormatters.abbreviatedDayOfWeekFormatter.string(from: day))
+                Text(DateFormatters.dayOfMonthFormatter.string(from: day))
             }
             .font(.callout)
             .bold()

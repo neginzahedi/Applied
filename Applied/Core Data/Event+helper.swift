@@ -27,6 +27,11 @@ extension Event {
         set { dueDate = newValue }
     }
     
+    var application_: Application {
+        get {application ?? Application()}
+        set {application = newValue}
+    }
+    
     convenience init(title: String, dueDate: Date, context: NSManagedObjectContext ) {
         self.init(context: context)
         self.title_ = title

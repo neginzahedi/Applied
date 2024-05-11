@@ -146,7 +146,7 @@ struct ApplicationDetailsView: View {
                 infoView(icon: "briefcase", title: "Employment Type", text: application.employmentType_ + " - " + application.workMode_)
             }
             HStack{
-                infoView(icon: "calendar", title: "Date Applied", text: Utils.formatDateToMonthDayYear(application.dateApplied_))
+                infoView(icon: "calendar", title: "Date Applied", text: DateFormatters.monthDayYearFormatter.string(from:application.dateApplied_))
                 infoView(icon: "folder.badge.questionmark", title: "Application's Status", text: application.applicationStatus_)
             }
         }

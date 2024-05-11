@@ -28,12 +28,12 @@
 		0F7E8D652BD7096A00138849 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7E8D642BD7096A00138849 /* MainView.swift */; };
 		0F7E8D672BD7174C00138849 /* EditApplicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7E8D662BD7174C00138849 /* EditApplicationView.swift */; };
 		0F7EEB612BBB4F2B0061A9C1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7EEB602BBB4F2B0061A9C1 /* Constants.swift */; };
+		0FA2D8EE2BF0266900306FBC /* DateFormatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA2D8ED2BF0266900306FBC /* DateFormatters.swift */; };
 		0FB11D082BEEB2200090AF9D /* DateEventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB11D072BEEB2200090AF9D /* DateEventsView.swift */; };
 		0FD3DC2C2BE54C2400B5CA30 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD3DC2B2BE54C2400B5CA30 /* CalendarView.swift */; };
 		0FDA548A2BE184220060C298 /* CreateEventSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDA54892BE184220060C298 /* CreateEventSheet.swift */; };
 		0FDCB4D02BB47C7F00423576 /* AddNewApplicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDCB4CF2BB47C7F00423576 /* AddNewApplicationView.swift */; };
 		0FDCB4D22BB4C8C900423576 /* ApplicationDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDCB4D12BB4C8C900423576 /* ApplicationDetailsView.swift */; };
-		0FDCB4D42BB4CD0300423576 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDCB4D32BB4CD0300423576 /* Utils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,12 +78,12 @@
 		0F7E8D642BD7096A00138849 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		0F7E8D662BD7174C00138849 /* EditApplicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditApplicationView.swift; sourceTree = "<group>"; };
 		0F7EEB602BBB4F2B0061A9C1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		0FA2D8ED2BF0266900306FBC /* DateFormatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatters.swift; sourceTree = "<group>"; };
 		0FB11D072BEEB2200090AF9D /* DateEventsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateEventsView.swift; sourceTree = "<group>"; };
 		0FD3DC2B2BE54C2400B5CA30 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		0FDA54892BE184220060C298 /* CreateEventSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEventSheet.swift; sourceTree = "<group>"; };
 		0FDCB4CF2BB47C7F00423576 /* AddNewApplicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewApplicationView.swift; sourceTree = "<group>"; };
 		0FDCB4D12BB4C8C900423576 /* ApplicationDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationDetailsView.swift; sourceTree = "<group>"; };
-		0FDCB4D32BB4CD0300423576 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,7 +148,7 @@
 				0F3F863E2BB473D2003858D8 /* AppliedApp.swift */,
 				0F7733BB2BE4043300C5B645 /* View */,
 				0F0FDD6F2BD838C400CB8865 /* Core Data */,
-				0FDCB4D32BB4CD0300423576 /* Utils.swift */,
+				0FA2D8EC2BF0265400306FBC /* Utils */,
 				0F7EEB602BBB4F2B0061A9C1 /* Constants.swift */,
 				0F3F866A2BB478E8003858D8 /* JobApplication.xcdatamodeld */,
 				0F3F86422BB473D3003858D8 /* Assets.xcassets */,
@@ -217,6 +217,14 @@
 				0F5581172BD06AC200BC011F /* UpcomingInterviewCardView.swift */,
 			);
 			path = Application;
+			sourceTree = "<group>";
+		};
+		0FA2D8EC2BF0265400306FBC /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				0FA2D8ED2BF0266900306FBC /* DateFormatters.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -355,7 +363,7 @@
 				0F2CC9D82BC072B10036F5B8 /* CharacterLimitedTextEditor.swift in Sources */,
 				0F3F86692BB478B7003858D8 /* DataController.swift in Sources */,
 				0FDA548A2BE184220060C298 /* CreateEventSheet.swift in Sources */,
-				0FDCB4D42BB4CD0300423576 /* Utils.swift in Sources */,
+				0FA2D8EE2BF0266900306FBC /* DateFormatters.swift in Sources */,
 				0FD3DC2C2BE54C2400B5CA30 /* CalendarView.swift in Sources */,
 				0F79B3DD2BDD7C5600D8BC4E /* Event+helper.swift in Sources */,
 				0F3F866C2BB478E8003858D8 /* JobApplication.xcdatamodeld in Sources */,
