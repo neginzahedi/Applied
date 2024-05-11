@@ -8,20 +8,11 @@ import SwiftUI
 struct CalendarView: View {
     
     @State private var selectedDate = Date()
-    private let getMMMMDate: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MMMM"
-        return formatter
-    }()
+    
+   
     
     @State private var events: [Event] = [] // Sample events
     
-    
-    private let getYYYYDate: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy"
-        return formatter
-    }()
     
     var body: some View {
         VStack(spacing: 0){
@@ -35,10 +26,10 @@ struct CalendarView: View {
                 .disabled(isPreviousButtonDisabled)
                 
                 HStack{
-                    Text(getMMMMDate.string(from: selectedDate))
+                    Text(Utils.month.string(from: selectedDate))
                         .font(.title3)
                         .bold()
-                    Text(getYYYYDate.string(from: selectedDate))
+                    Text(Utils.year.string(from: selectedDate))
                         .font(.footnote)
                 }
                 Spacer()
@@ -55,7 +46,9 @@ struct CalendarView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 20) {
                     ForEach(getDaysInMonth(date: selectedDate), id: \.self) { day in
-                        CardView(day: day)
+                        NavigationLink(destination: DateEventsView(date: day)) {
+                            CardView(day: day)
+                        }
                     }
                 }
                 .padding(20)
@@ -105,18 +98,6 @@ struct CardView: View {
     var events: FetchedResults<Event>
     
     
-    private static let getEDate: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "E"
-        return formatter
-    }()
-    
-    private static let getDDate: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "d"
-        return formatter
-    }()
-    
     var body: some View {
         
         let matchingEvents = events.filter { Calendar.current.isDate($0.dueDate_, inSameDayAs: day) }
@@ -124,8 +105,8 @@ struct CardView: View {
         
         ZStack{
             VStack(spacing: 10){
-                Text(Self.getEDate.string(from: day))
-                Text(Self.getDDate.string(from: day))
+                Text(Utils.dayOfWeek.string(from: day))
+                Text(Utils.dayOfMonth.string(from: day))
             }
             .font(.callout)
             .bold()
@@ -140,8 +121,6 @@ struct CardView: View {
                     .offset(x: 30, y: -30)
             }
         }
-
-
     }
 }
 
