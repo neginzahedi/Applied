@@ -2,14 +2,16 @@
 //  MainView.swift
 //  Applied
 //
-//  Created by Negin Zahedi on 2024-04-22.
-//
 
 import SwiftUI
 
 struct MainView: View {
     
+    // MARK: - Properties
+    
     @State var showIntro: Bool = true
+    
+    // MARK: - Body
     
     var body: some View {
         NavigationStack{
@@ -23,11 +25,12 @@ struct MainView: View {
         .tint(.primary)
         
         .onAppear(){
-            if UserDefaults.standard.bool(forKey: "hasShownIntro") == false {
-                print(UserDefaults.standard.bool(forKey: "hasShownIntro"))
-                self.showIntro = false
+            if UserDefaults.standard.object(forKey: "hasShownIntro") != nil {
+                // Key exists
+                showIntro = false
             } else {
-                self.showIntro = true
+                // Key does not exist
+                showIntro = true
             }
         }
     }

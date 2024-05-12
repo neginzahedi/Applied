@@ -33,24 +33,27 @@ struct IntroView: View {
                     .foregroundStyle(.secondary)
             }
             .padding()
-            
-            Button(action: {
-                // Update UserDefaults flag
-                UserDefaults.standard.set(false, forKey: "hasShownIntro")
-                // Update showIntro to false
-                self.showIntro = false
-            }, label: {
-                Text("Get Started")
-                    .frame(width: 200, height: 50, alignment: .center)
-                    .background(Color(.customYellow))
-                    .clipShape(Capsule())
-                    .foregroundColor(.black)
-                    .font(.headline)
-            })
-            
+            startButton
             Spacer()
         }
     }
+    
+    // MARK: - Computed Properties
+    
+    private var startButton: some View{
+        Button(action: {
+            UserDefaults.standard.set(false, forKey: Constants.introKey)
+            self.showIntro = false
+        }, label: {
+            Text("Get Started")
+                .frame(width: 200, height: 50, alignment: .center)
+                .background(Color(.customYellow))
+                .clipShape(Capsule())
+                .foregroundColor(.black)
+                .font(.headline)
+        })
+    }
+    
 }
 
 // MARK: - Preview IntroView

@@ -4,7 +4,6 @@
 //
 
 import SwiftUI
-import CoreData
 
 struct ApplicationDetailsView: View {
     
@@ -18,36 +17,35 @@ struct ApplicationDetailsView: View {
     @State private var showDeleteConfirmationDialog: Bool = false
     @State private var showStatusConfirmationDialog: Bool = false
     @State private var showCreateEventSheet: Bool = false
-    @State private var showEventPopOver: Bool = false
-    
     
     // MARK: - Body
     
     var body: some View {
         VStack{
-            VStack(alignment: .leading, spacing: 20){
-                jobTitleView()
-                Divider()
-                applicationInfoView()
-                Divider()
-                noteView()
-                Divider()
-                upcomingScheduleView()
-            }
-            .padding(.horizontal,20)
-            .padding(.top, 20)
+            contentView
+                .padding(.horizontal,20)
+                .padding(.top, 20)
             Spacer()
         }
-        // MARK: - Confirmation Dialog
-        .confirmationDialog("Change Status", isPresented: $showStatusConfirmationDialog) {
-            ForEach(Constants.applicationStatuses, id: \.self) { status in
-                Button(action: {
-                    application.applicationStatus_ = status
-                    showStatusConfirmationDialog = false
-                }) {
-                    Text(status)
-                }
+        // MARK: - Navigation Bar
+        
+        .navigationTitle("Application Detail")
+        .navigationBarBackButtonHidden()
+        .toolbar{
+            ToolbarItem(placement: .topBarLeading) {
+                BackButton()
             }
+            ToolbarItem(placement: .topBarTrailing) {
+                moreOptionsButton
+            }
+        }
+        
+        // MARK: - Confirmation Dialog
+        
+        .confirmationDialog("Change Status",
+                            isPresented: $showStatusConfirmationDialog,
+                            titleVisibility: .hidden) {
+            changeStatusButton
         } message: {
             Text("Current Status: \(application.applicationStatus_)")
         }
@@ -55,12 +53,7 @@ struct ApplicationDetailsView: View {
         .confirmationDialog("Delete Application",
                             isPresented: $showDeleteConfirmationDialog,
                             titleVisibility: .visible) {
-            Button(role: .destructive) {
-                Application.delete(application: application)
-                dismiss()
-            } label: {
-                Text("Delete")
-            }
+            deleteApplicationButton
         } message: {
             Text("Are you sure you want to delete \(application.jobTitle ?? "this") application?")
         }
@@ -70,66 +63,23 @@ struct ApplicationDetailsView: View {
         .sheet(isPresented: $showCreateEventSheet) {
             CreateEventSheet(application: application)
         }
-        
-        // MARK: - Toolbar
-        .navigationTitle("Application Detail")
-        .toolbar{
-            ToolbarItem(placement: .topBarLeading) {
-                Button(action: {
-                    dismiss()
-                }, label: {
-                    Image(systemName: "arrow.backward")
-                })
-            }
-            
-            ToolbarItem(placement: .topBarTrailing) {
-                Menu{
-                    Button(action: {
-                        showCreateEventSheet.toggle()
-                    }, label: {
-                        HStack{
-                            Text("Create Event")
-                            Image(systemName: "calendar.badge.plus")
-                        }
-                    })
-                    
-                    Button(action: {
-                        showStatusConfirmationDialog.toggle()
-                    }, label: {
-                        HStack{
-                            Text("Update Status")
-                            Image(systemName: "folder.badge.questionmark")
-                        }
-                    })
-                    
-                    NavigationLink {
-                        EditApplicationView(application: application)
-                    } label: {
-                        HStack{
-                            Text("Edit")
-                            Image(systemName: "pencil")
-                        }
-                    }
-                    
-                    Button(role: .destructive, action: {
-                        showDeleteConfirmationDialog.toggle()
-                    }, label: {
-                        HStack{
-                            Text("Delete")
-                            Image(systemName: "trash")
-                        }
-                    })
-                } label: {
-                    Image(systemName: "ellipsis")
-                }
-            }
-        }
-        .navigationBarBackButtonHidden()
     }
     
-    // MARK: - SubViews
+    // MARK: - Computed Properties
     
-    private func jobTitleView() -> some View {
+    private var contentView: some View {
+        VStack(alignment: .leading, spacing: 20) {
+            jobTitleView
+            Divider()
+            applicationInfoView
+            Divider()
+            noteView
+            Divider()
+            upcomingScheduleView
+        }
+    }
+    
+    private var jobTitleView: some View {
         VStack(alignment: .leading){
             Text(application.jobTitle_)
                 .font(.title3)
@@ -139,21 +89,21 @@ struct ApplicationDetailsView: View {
         }
     }
     
-    private func applicationInfoView() -> some View {
+    private var applicationInfoView: some View {
         VStack(spacing: 25){
             HStack{
-                infoView(icon: "globe.desk", title: "Location", text: application.location_.isEmpty ? "N/A" : application.location_)
-                infoView(icon: "briefcase", title: "Employment Type", text: application.employmentType_ + " - " + application.workMode_)
+                InfoItemWithIcon(icon: "globe.desk", title: "Location", text: application.location_.isEmpty ? "N/A" : application.location_)
+                InfoItemWithIcon(icon: "briefcase", title: "Employment Type", text: application.employmentType_ + " - " + application.workMode_)
             }
             HStack{
-                infoView(icon: "calendar", title: "Date Applied", text: DateUtils.monthDayYearFormatter.string(from:application.dateApplied_))
-                infoView(icon: "folder.badge.questionmark", title: "Application's Status", text: application.applicationStatus_)
+                InfoItemWithIcon(icon: "calendar", title: "Date Applied", text: DateUtils.monthDayYearFormatter.string(from:application.dateApplied_))
+                InfoItemWithIcon(icon: "folder.badge.questionmark", title: "Application's Status", text: application.applicationStatus_)
             }
         }
         .bold()
     }
     
-    private func noteView() -> some View {
+    private var noteView: some View {
         DisclosureGroup {
             if application.note_.isEmpty{
                 HStack{
@@ -176,7 +126,7 @@ struct ApplicationDetailsView: View {
         .tint(.primary)
     }
     
-    private func upcomingScheduleView() -> some View {
+    private var upcomingScheduleView: some View {
         VStack(alignment: .leading){
             HStack{
                 Text("Upcoming Schedule")
@@ -210,27 +160,72 @@ struct ApplicationDetailsView: View {
         }
     }
     
-    private func infoView(icon: String, title: String, text: String) -> some View {
-        VStack{
-            HStack{
-                Image(systemName: icon)
-                Text(title)
-                    .foregroundStyle(.secondary)
-                Spacer()
+    private var moreOptionsButton: some View{
+        Menu{
+            Button(action: {
+                showCreateEventSheet.toggle()
+            }, label: {
+                HStack{
+                    Text("Create Event")
+                    Image(systemName: "calendar.badge.plus")
+                }
+            })
+            
+            Button(action: {
+                showStatusConfirmationDialog.toggle()
+            }, label: {
+                HStack{
+                    Text("Update Status")
+                    Image(systemName: "folder.badge.questionmark")
+                }
+            })
+            
+            NavigationLink {
+                EditApplicationView(application: application)
+            } label: {
+                HStack{
+                    Text("Edit")
+                    Image(systemName: "pencil")
+                }
             }
-            .font(.caption)
-            HStack{
-                Text(text)
-                Spacer()
+            Button(role: .destructive, action: {
+                showDeleteConfirmationDialog.toggle()
+            }, label: {
+                HStack{
+                    Text("Delete")
+                    Image(systemName: "trash")
+                }
+            })
+        } label: {
+            Image(systemName: "ellipsis")
+        }
+    }
+    
+    private var deleteApplicationButton: some View {
+        Button(role: .destructive) {
+            Application.delete(application: application)
+            dismiss()
+        } label: {
+            Text("Delete")
+        }
+    }
+    
+    private var changeStatusButton: some View{
+        ForEach(Constants.applicationStatuses, id: \.self) { status in
+            Button(action: {
+                application.applicationStatus_ = status
+                showStatusConfirmationDialog = false
+            }) {
+                Text(status)
             }
-            .font(.footnote)
         }
     }
 }
 
 
 // MARK: - Preview
-
+#if DEBUG
 #Preview {
     ApplicationDetailsView(application: Application.example)
 }
+#endif

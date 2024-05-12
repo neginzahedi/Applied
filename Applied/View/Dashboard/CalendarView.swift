@@ -29,51 +29,54 @@ struct CalendarView: View {
             }
         }
     }
-    
-    private var isPreviousButtonDisabled: Bool {
-        let currentDate = Calendar.current.startOfDay(for: Date())
-        let currentMonth = Calendar.current.component(.month, from: currentDate)
-        let currentDay = Calendar.current.component(.day, from: currentDate)
-        let selectedMonth = Calendar.current.component(.month, from: selectedDate)
-        let selectedDay = Calendar.current.component(.day, from: selectedDate)
-        
-        return selectedMonth == currentMonth && selectedDay <= currentDay
-    }
 }
 
-// MARK: - Subviews
-
 // MARK: - Month and Year Header View
+
 struct MonthYearHeader: View {
+    
+    // MARK: - properties
     @Binding var selectedDate: Date
     
+    // MARK: - Body
     var body: some View {
         HStack {
-            Button(action: {
-                self.selectedDate = Calendar.current.date(byAdding: .month, value: -1, to: self.selectedDate)!
-            }) {
-                Image(systemName: "chevron.left")
-                    .opacity(isPreviousButtonDisabled ? 0.5 : 1.0)
-            }
-            .disabled(isPreviousButtonDisabled)
-            
-            HStack{
-                Text(DateUtils.monthFormatter.string(from: selectedDate))
-                    .font(.title3)
-                    .bold()
-                Text(DateUtils.yearFormatter.string(from: selectedDate))
-                    .font(.footnote)
-            }
+            previousButton
+            monthYearText
             Spacer()
-            
-            Button(action: {
-                self.selectedDate = Calendar.current.date(byAdding: .month, value: 1, to: self.selectedDate)!
-            }) {
-                Image(systemName: "chevron.right")
-            }
+            nextButton
         }
         .padding(.top, 20)
         .padding(.horizontal, 20)
+    }
+    
+    // MARK: - computed properties
+    private var previousButton: some View {
+        Button(action: {
+            self.selectedDate = Calendar.current.date(byAdding: .month, value: -1, to: self.selectedDate)!
+        }) {
+            Image(systemName: "chevron.left")
+                .opacity(isPreviousButtonDisabled ? 0.5 : 1.0)
+        }
+        .disabled(isPreviousButtonDisabled)
+    }
+    
+    private var monthYearText: some View {
+        HStack{
+            Text(DateUtils.monthFormatter.string(from: selectedDate))
+                .font(.title3)
+                .bold()
+            Text(DateUtils.yearFormatter.string(from: selectedDate))
+                .font(.footnote)
+        }
+    }
+    
+    private var nextButton: some View {
+        Button(action: {
+            self.selectedDate = Calendar.current.date(byAdding: .month, value: 1, to: self.selectedDate)!
+        }) {
+            Image(systemName: "chevron.right")
+        }
     }
     
     private var isPreviousButtonDisabled: Bool {
@@ -91,15 +94,16 @@ struct MonthYearHeader: View {
 
 struct DayCardView: View {
     
+    // MARK: - Properties
+    
     let day: Date
     
     @FetchRequest(fetchRequest: Event.fetch(), animation: .bouncy)
-    
     var events: FetchedResults<Event>
     
+    // MARK: - Body
     
     var body: some View {
-        
         let matchingEvents = events
             .filter { Calendar.current.isDate($0.dueDate_, inSameDayAs: day) }
             .filter {$0.dueDate_ > Date() }

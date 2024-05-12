@@ -43,51 +43,56 @@ struct EditApplicationView: View {
     var body: some View {
         ScrollView{
             VStack(alignment: .leading){
-                VStack(spacing: 20){
-                    
-                    TextFieldWithTitle(title: "Job title", placeholder: "Enter job title (required)", text:$editedJobTitle)
-                    TextFieldWithTitle(title: "Company", placeholder: "Enter company name (required)", text: $editedCompany)
-                    TextFieldWithTitle(title: "Location", placeholder: "Enter location (e.g., city, province)", text: $editedLocation)
-                    
-                    PickerWithTitle(title: "Employment Type", selection: $editedEmploymentType, options: Constants.employmentTypes)
-                    PickerWithTitle(title: "Work Mode", selection: $editedWorkMode, options: Constants.workModes)
-                    PickerWithTitle(title: "Application Status", selection: $editedApplicationStatus, options: Constants.applicationStatuses)
-                    
-                    DatePicker("Date Applied", selection: $editedDateApplied, in: ...Date(), displayedComponents: [.date])
-                        .bold()
-                    
-                    CharacterLimitedTextEditor(text: $editedNote, characterLimit: 255)
-                        .modifier(RoundedRectangleModifier(cornerRadius: 10))
-                    
-                    
-                }
-                .padding()
+                formFields
             }
+            .padding()
             .font(.subheadline)
+            .scrollIndicators(.hidden)
+            .textInputAutocapitalization(.never)
         }
-        .scrollIndicators(.hidden)
-        .autocorrectionDisabled()
-        .textInputAutocapitalization(.never)
         
-        .navigationTitle("Job Application")
+        // MARK: - Navigation Bar
+        
+        .navigationTitle("Edit Application")
+        .navigationBarBackButtonHidden()
         .toolbar{
             ToolbarItem(placement: .topBarLeading) {
-                Button(action: {
-                    dismiss()
-                }, label: {
-                    Image(systemName: "arrow.backward")
-                })
+                BackButton()
             }
             
             ToolbarItem(placement: .topBarTrailing) {
-                Button("Save") {
-                    saveApplication()
-                }
-                .disabled(editedJobTitle.isEmpty || editedCompany.isEmpty)
+                saveButton
             }
         }
-        .navigationBarBackButtonHidden()
     }
+    
+    // MARK: - Computed Properties
+    
+    private var formFields: some View {
+        VStack(spacing: 20) {
+            TextFieldWithTitle(title: "Job title", placeholder: "Enter job title (required)", text: $editedJobTitle)
+            TextFieldWithTitle(title: "Company", placeholder: "Enter company name (required)", text: $editedCompany)
+            TextFieldWithTitle(title: "Location", placeholder: "Enter location (e.g., city, province)", text: $editedLocation)
+            PickerWithTitle(title: "Employment Type", options: Constants.employmentTypes, selection: $editedEmploymentType)
+            PickerWithTitle(title: "Work Mode", options: Constants.workModes, selection: $editedWorkMode)
+            PickerWithTitle(title: "Application Status", options: Constants.applicationStatuses, selection: $editedApplicationStatus)
+            DatePicker("Date Applied", selection: $editedDateApplied, in: ...Date(), displayedComponents: [.date])
+                .bold()
+            CharacterLimitedTextEditor(text: $editedNote, characterLimit: 255)
+                .modifier(RoundedRectangleModifier(cornerRadius: 10))
+        }
+    }
+    
+    private var saveButton: some View {
+        Button(action: {
+            saveApplication()
+        }) {
+            Text("Save")
+        }
+        .disabled(editedJobTitle.isEmpty || editedCompany.isEmpty)
+    }
+    
+    // MARK: - Methods
     
     private func saveApplication(){
         application.jobTitle_ = editedJobTitle
@@ -108,3 +113,10 @@ struct EditApplicationView: View {
         }
     }
 }
+
+// MARK: - Preview
+#if DEBUG
+#Preview {
+    EditApplicationView(application: Application.example)
+}
+#endif

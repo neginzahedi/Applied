@@ -29,6 +29,10 @@
 		0F7E8D672BD7174C00138849 /* EditApplicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7E8D662BD7174C00138849 /* EditApplicationView.swift */; };
 		0F7EEB612BBB4F2B0061A9C1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7EEB602BBB4F2B0061A9C1 /* Constants.swift */; };
 		0FA2D8EE2BF0266900306FBC /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA2D8ED2BF0266900306FBC /* DateUtils.swift */; };
+		0FA2D8F02BF1302600306FBC /* CustomButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA2D8EF2BF1302600306FBC /* CustomButtons.swift */; };
+		0FA2D8F42BF1311C00306FBC /* TextFieldWithTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA2D8F32BF1311C00306FBC /* TextFieldWithTitle.swift */; };
+		0FA2D8F62BF1315300306FBC /* PickerWithTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA2D8F52BF1315300306FBC /* PickerWithTitle.swift */; };
+		0FA2D8FA2BF14C5000306FBC /* InfoItemWithIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA2D8F92BF14C5000306FBC /* InfoItemWithIcon.swift */; };
 		0FB11D082BEEB2200090AF9D /* DateEventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB11D072BEEB2200090AF9D /* DateEventsView.swift */; };
 		0FD3DC2C2BE54C2400B5CA30 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD3DC2B2BE54C2400B5CA30 /* CalendarView.swift */; };
 		0FDA548A2BE184220060C298 /* CreateEventSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDA54892BE184220060C298 /* CreateEventSheet.swift */; };
@@ -79,6 +83,10 @@
 		0F7E8D662BD7174C00138849 /* EditApplicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditApplicationView.swift; sourceTree = "<group>"; };
 		0F7EEB602BBB4F2B0061A9C1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0FA2D8ED2BF0266900306FBC /* DateUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
+		0FA2D8EF2BF1302600306FBC /* CustomButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtons.swift; sourceTree = "<group>"; };
+		0FA2D8F32BF1311C00306FBC /* TextFieldWithTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithTitle.swift; sourceTree = "<group>"; };
+		0FA2D8F52BF1315300306FBC /* PickerWithTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerWithTitle.swift; sourceTree = "<group>"; };
+		0FA2D8F92BF14C5000306FBC /* InfoItemWithIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoItemWithIcon.swift; sourceTree = "<group>"; };
 		0FB11D072BEEB2200090AF9D /* DateEventsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateEventsView.swift; sourceTree = "<group>"; };
 		0FD3DC2B2BE54C2400B5CA30 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		0FDA54892BE184220060C298 /* CreateEventSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEventSheet.swift; sourceTree = "<group>"; };
@@ -222,9 +230,29 @@
 		0FA2D8EC2BF0265400306FBC /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				0FA2D8ED2BF0266900306FBC /* DateUtils.swift */,
+				0FA2D8F22BF1310300306FBC /* Components */,
+				0FA2D8F12BF130FB00306FBC /* Methods */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		0FA2D8F12BF130FB00306FBC /* Methods */ = {
+			isa = PBXGroup;
+			children = (
+				0FA2D8ED2BF0266900306FBC /* DateUtils.swift */,
+			);
+			path = Methods;
+			sourceTree = "<group>";
+		};
+		0FA2D8F22BF1310300306FBC /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				0FA2D8EF2BF1302600306FBC /* CustomButtons.swift */,
+				0FA2D8F32BF1311C00306FBC /* TextFieldWithTitle.swift */,
+				0FA2D8F52BF1315300306FBC /* PickerWithTitle.swift */,
+				0FA2D8F92BF14C5000306FBC /* InfoItemWithIcon.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -357,10 +385,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0FA2D8F02BF1302600306FBC /* CustomButtons.swift in Sources */,
 				0FDCB4D02BB47C7F00423576 /* AddNewApplicationView.swift in Sources */,
 				0FB11D082BEEB2200090AF9D /* DateEventsView.swift in Sources */,
 				0F0FDD712BD838E800CB8865 /* Application+helper.swift in Sources */,
 				0F2CC9D82BC072B10036F5B8 /* CharacterLimitedTextEditor.swift in Sources */,
+				0FA2D8FA2BF14C5000306FBC /* InfoItemWithIcon.swift in Sources */,
 				0F3F86692BB478B7003858D8 /* DataController.swift in Sources */,
 				0FDA548A2BE184220060C298 /* CreateEventSheet.swift in Sources */,
 				0FA2D8EE2BF0266900306FBC /* DateUtils.swift in Sources */,
@@ -372,8 +402,10 @@
 				0F3F863F2BB473D2003858D8 /* AppliedApp.swift in Sources */,
 				0F5581182BD06AC200BC011F /* UpcomingInterviewCardView.swift in Sources */,
 				0F33D21F2BC4A7810017D072 /* IntroView.swift in Sources */,
+				0FA2D8F62BF1315300306FBC /* PickerWithTitle.swift in Sources */,
 				0F7E8D672BD7174C00138849 /* EditApplicationView.swift in Sources */,
 				0F41A1E52BC751D6007FD327 /* ApplicationCardView.swift in Sources */,
+				0FA2D8F42BF1311C00306FBC /* TextFieldWithTitle.swift in Sources */,
 				0F69C8FB2BCC536800663655 /* ViewModifiers.swift in Sources */,
 				0FDCB4D22BB4C8C900423576 /* ApplicationDetailsView.swift in Sources */,
 				0F55811A2BD06D1600BC011F /* ApplicationsView.swift in Sources */,
