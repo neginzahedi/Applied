@@ -199,8 +199,6 @@
 				0F33D21E2BC4A7810017D072 /* IntroView.swift */,
 				0F5581192BD06D1600BC011F /* ApplicationsView.swift */,
 				0FDA54892BE184220060C298 /* CreateEventSheet.swift */,
-				0F2CC9D72BC072B10036F5B8 /* CharacterLimitedTextEditor.swift */,
-				0F69C8FA2BCC536800663655 /* ViewModifiers.swift */,
 				0FB11D072BEEB2200090AF9D /* DateEventsView.swift */,
 			);
 			path = View;
@@ -230,6 +228,7 @@
 		0FA2D8EC2BF0265400306FBC /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				0F69C8FA2BCC536800663655 /* ViewModifiers.swift */,
 				0FA2D8F22BF1310300306FBC /* Components */,
 				0FA2D8F12BF130FB00306FBC /* Methods */,
 			);
@@ -247,6 +246,7 @@
 		0FA2D8F22BF1310300306FBC /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				0F2CC9D72BC072B10036F5B8 /* CharacterLimitedTextEditor.swift */,
 				0FA2D8EF2BF1302600306FBC /* CustomButtons.swift */,
 				0FA2D8F32BF1311C00306FBC /* TextFieldWithTitle.swift */,
 				0FA2D8F52BF1315300306FBC /* PickerWithTitle.swift */,
