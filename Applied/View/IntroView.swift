@@ -37,13 +37,14 @@ struct IntroView: View {
             Spacer()
         }
     }
-    
     // MARK: - Computed Properties
     
     private var startButton: some View{
         Button(action: {
             UserDefaults.standard.set(false, forKey: Constants.introKey)
-            self.showIntro = false
+            withAnimation {
+                self.showIntro = false
+            }
         }, label: {
             Text("Get Started")
                 .frame(width: 200, height: 50, alignment: .center)
@@ -53,7 +54,6 @@ struct IntroView: View {
                 .font(.headline)
         })
     }
-    
 }
 
 // MARK: - Preview IntroView
