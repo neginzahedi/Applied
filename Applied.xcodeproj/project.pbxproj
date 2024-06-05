@@ -156,7 +156,7 @@
 				0F3F863E2BB473D2003858D8 /* AppliedApp.swift */,
 				0F7733BB2BE4043300C5B645 /* View */,
 				0F0FDD6F2BD838C400CB8865 /* Core Data */,
-				0FA2D8EC2BF0265400306FBC /* Utils */,
+				0FA2D8EC2BF0265400306FBC /* Helpers */,
 				0F7EEB602BBB4F2B0061A9C1 /* Constants.swift */,
 				0F3F866A2BB478E8003858D8 /* JobApplication.xcdatamodeld */,
 				0F3F86422BB473D3003858D8 /* Assets.xcassets */,
@@ -225,14 +225,14 @@
 			path = Application;
 			sourceTree = "<group>";
 		};
-		0FA2D8EC2BF0265400306FBC /* Utils */ = {
+		0FA2D8EC2BF0265400306FBC /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
 				0F69C8FA2BCC536800663655 /* ViewModifiers.swift */,
 				0FA2D8F22BF1310300306FBC /* Components */,
 				0FA2D8F12BF130FB00306FBC /* Methods */,
 			);
-			path = Utils;
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		0FA2D8F12BF130FB00306FBC /* Methods */ = {
