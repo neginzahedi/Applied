@@ -15,9 +15,9 @@ struct AddNewApplicationView: View {
     @State private var jobTitle: String = ""
     @State private var company: String = ""
     @State private var location: String = ""
-    @State private var employmentType: String = "Full-time"
-    @State private var applicationStatus: String = "Received"
-    @State private var workMode: String = "Onsite"
+    @State private var employmentType: String = Constants.employmentTypes[0]
+    @State private var applicationStatus: String = Constants.applicationStatuses[0]
+    @State private var workMode: String = Constants.workModes[0]
     @State private var note: String = ""
     @State private var dateApplied: Date = Date()
     
@@ -63,8 +63,9 @@ struct AddNewApplicationView: View {
             DatePicker("Date Applied", selection: $dateApplied, in: ...Date(), displayedComponents: [.date])
                 .bold()
             
+            Divider()
+            
             CharacterLimitedTextEditor(text: $note, characterLimit: 255)
-                .modifier(RoundedRectangleModifier(cornerRadius: 10))
         }
     }
     

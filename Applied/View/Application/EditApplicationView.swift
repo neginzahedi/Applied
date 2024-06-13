@@ -78,8 +78,8 @@ struct EditApplicationView: View {
             PickerWithTitle(title: "Application Status", options: Constants.applicationStatuses, selection: $editedApplicationStatus)
             DatePicker("Date Applied", selection: $editedDateApplied, in: ...Date(), displayedComponents: [.date])
                 .bold()
+            Divider()
             CharacterLimitedTextEditor(text: $editedNote, characterLimit: 255)
-                .modifier(RoundedRectangleModifier(cornerRadius: 10))
         }
     }
     

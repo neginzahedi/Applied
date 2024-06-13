@@ -10,7 +10,7 @@ struct ApplicationCardView: View {
     // MARK: - Properties
     
     @ObservedObject var application : Application
-    
+
     // MARK: - Body
     
     var body: some View {
@@ -18,13 +18,9 @@ struct ApplicationCardView: View {
             statusRectangleView
             jobInfoRectangleView
         }
-        .background(.white)
+        .background(.customBackground)
         .clipShape(
             RoundedRectangle(cornerRadius: 20)
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 20)
-                .stroke(.black.opacity(0.1), lineWidth: 1)
         )
         .padding(.horizontal, 20)
     }
@@ -66,7 +62,7 @@ struct ApplicationCardView: View {
     
     private var jobInfoRectangleView: some View{
         RoundedRectangle(cornerRadius: 10)
-            .fill(Color.white)
+            .fill(.customBackground)
             .frame(height: 130)
             .frame(maxWidth: .infinity, alignment: .leading)
             .overlay(

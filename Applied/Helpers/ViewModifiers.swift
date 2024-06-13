@@ -11,10 +11,8 @@ struct RoundedRectangleModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .padding(10)
+            .background(.customBackground)
             .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
-            .overlay(
-                RoundedRectangle(cornerRadius: cornerRadius)
-                    .stroke(.black.opacity(0.1), lineWidth: 1)
-            )
+            
     }
 }

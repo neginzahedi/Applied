@@ -50,8 +50,7 @@ struct IntroView: View {
                 .frame(width: 200, height: 50, alignment: .center)
                 .background(Color(.customYellow))
                 .clipShape(Capsule())
-                .foregroundColor(.black)
-                .font(.headline)
+                .bold()
         })
     }
 }

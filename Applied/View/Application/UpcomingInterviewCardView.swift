@@ -21,13 +21,9 @@ struct UpcomingInterviewCardView: View {
             .padding()
             .frame(minHeight: 80)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(.white)
+            .background(.customBackground)
             .clipShape(
                 RoundedRectangle(cornerRadius: 20)
-            )
-            .overlay(
-                RoundedRectangle(cornerRadius: 20)
-                    .stroke(.black.opacity(0.1), lineWidth: 1)
             )
         
         // MARK: - Confirmation Dialog
@@ -62,7 +58,7 @@ struct UpcomingInterviewCardView: View {
             }
             Rectangle()
                 .frame(width: 3, height: 50)
-                .foregroundColor(Color.black)
+                .foregroundColor(.primary)
         }
         .frame(width: 60)
     }

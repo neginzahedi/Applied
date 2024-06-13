@@ -8,7 +8,8 @@ import SwiftUI
 struct ApplicationsView: View {
     
     // MARK: - Properties
-    
+    @Environment(\.colorScheme) var colorScheme
+
     var applications: FetchedResults<Application>
     @State var selectedStatus: String = "All"
     private let applicationStatus = ["All", "Applied", "Interview", "Closed"]
@@ -31,9 +32,10 @@ struct ApplicationsView: View {
                     
                     Text("\(status) (\(count))")
                         .font(.caption)
-                        .modifier(RoundedRectangleModifier(cornerRadius: 10))
-                        .foregroundColor(status == selectedStatus ? .white : .black)
-                        .background(status == selectedStatus ? Color(.black) : Color.white)
+                        .bold()
+                        .foregroundColor(status == selectedStatus ? colorScheme == .dark ? .black : .white : colorScheme == .dark ? .white: .black)
+                        .padding(10)
+                        .background(status == selectedStatus ? colorScheme == .dark ? .white : .black : .customBackground)
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                         .padding(2)
                         .onTapGesture {

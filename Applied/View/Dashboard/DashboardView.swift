@@ -11,7 +11,8 @@ struct DashboardView: View {
     
     @FetchRequest(fetchRequest: Application.fetch(), animation: .bouncy)
     var applications: FetchedResults<Application>
-    
+    @State private var showBottomBar = false
+
     // MARK: - Body
     
     var body: some View {
@@ -80,13 +81,18 @@ struct DashboardView: View {
                 }
             }
             .padding(.horizontal, 20)
-            
             ScrollView(.vertical) {
-                ForEach(applications.prefix(5)) { application in
-                    NavigationLink {
-                        ApplicationDetailsView(application: application)
-                    } label: {
-                        ApplicationCardView(application: application)
+                VStack(spacing: 15){
+                    ForEach(applications.prefix(5)) { application in
+                        NavigationLink {
+                            ApplicationDetailsView(application: application)
+                        } label: {
+                            ApplicationCardView(application: application)
+                        }
+                    }
+                    NavigationLink(destination: ApplicationsView(applications: applications)) {
+                        Text("See All")
+                            .font(.footnote)
                     }
                 }
             }

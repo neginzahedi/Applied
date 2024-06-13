@@ -119,7 +119,9 @@ struct DayCardView: View {
             .bold()
             .frame(width: 40, height: 50)
             .foregroundColor(.primary)
+            
             .modifier(RoundedRectangleModifier(cornerRadius: 10))
+            
             
             if hasEvent {
                 Circle()
