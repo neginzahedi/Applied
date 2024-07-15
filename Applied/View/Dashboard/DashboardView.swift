@@ -90,10 +90,6 @@ struct DashboardView: View {
                             ApplicationCardView(application: application)
                         }
                     }
-                    NavigationLink(destination: ApplicationsView(applications: applications)) {
-                        Text("See All")
-                            .font(.footnote)
-                    }
                 }
             }
         }

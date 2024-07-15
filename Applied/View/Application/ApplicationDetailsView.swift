@@ -140,19 +140,34 @@ struct ApplicationDetailsView: View {
                 
             }
             ScrollView {
-                VStack {
-                    let currentDate = Date()
-                    let events = application.events_
-                        .filter { $0.dueDate_ >= currentDate } // Filter events that are not from the past
-                        .sorted { $0.dueDate_ < $1.dueDate_ } // Sort remaining events by due date
-                    
-                    if events.isEmpty {
-                        Text("There are no upcoming events for this application.")
-                            .font(.callout)
-                            .foregroundStyle(.secondary)
-                    } else {
-                        ForEach(events) { event in
-                            UpcomingInterviewCardView(event: event)
+                let currentDate = Date()
+                let upcomingEvents = application.events_
+                    .filter { $0.dueDate_ >= currentDate } // Filter events that are not from the past
+                    .sorted { $0.dueDate_ < $1.dueDate_ } // Sort remaining events by due date
+                let pastEvents = application.events_
+                    .filter { $0.dueDate_ < currentDate } // Filter events that are not from the past
+                    .sorted { $0.dueDate_ < $1.dueDate_ } // Sort remaining events by due date
+                VStack(alignment: .leading, spacing: 20){
+                    VStack {
+                        if upcomingEvents.isEmpty {
+                            Text("There are no upcoming events for this application.")
+                                .font(.callout)
+                                .foregroundStyle(.secondary)
+                        } else {
+                            ForEach(upcomingEvents) { event in
+                                UpcomingInterviewCardView(event: event)
+                            }
+                        }
+                    }
+                    VStack(alignment: .leading) {
+                        if !pastEvents.isEmpty {
+                            
+                            Text("Past Events")
+                                .font(.subheadline)
+                            ForEach(pastEvents) { event in
+                                UpcomingInterviewCardView(event: event)
+                                    .opacity(0.5)
+                            }
                         }
                     }
                 }

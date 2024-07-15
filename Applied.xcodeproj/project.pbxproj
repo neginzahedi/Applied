@@ -190,16 +190,40 @@
 			path = AppliedUITests;
 			sourceTree = "<group>";
 		};
+		0F59E79A2C45EE1800B5D1C2 /* Applications */ = {
+			isa = PBXGroup;
+			children = (
+				0F41A1E42BC751D6007FD327 /* ApplicationCardView.swift */,
+				0F5581192BD06D1600BC011F /* ApplicationsView.swift */,
+			);
+			path = Applications;
+			sourceTree = "<group>";
+		};
+		0F59E79B2C45EE1F00B5D1C2 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				0FB11D072BEEB2200090AF9D /* DateEventsView.swift */,
+				0FD3DC2B2BE54C2400B5CA30 /* CalendarView.swift */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
+		0F59E79C2C45EEB500B5D1C2 /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				0FDA54892BE184220060C298 /* CreateEventSheet.swift */,
+				0F5581172BD06AC200BC011F /* UpcomingInterviewCardView.swift */,
+			);
+			path = Events;
+			sourceTree = "<group>";
+		};
 		0F7733BB2BE4043300C5B645 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				0F7733BD2BE4049F00C5B645 /* Application */,
-				0F7733BC2BE4044E00C5B645 /* Dashboard */,
 				0F7E8D642BD7096A00138849 /* MainView.swift */,
 				0F33D21E2BC4A7810017D072 /* IntroView.swift */,
-				0F5581192BD06D1600BC011F /* ApplicationsView.swift */,
-				0FDA54892BE184220060C298 /* CreateEventSheet.swift */,
-				0FB11D072BEEB2200090AF9D /* DateEventsView.swift */,
+				0F7733BC2BE4044E00C5B645 /* Dashboard */,
+				0F7733BD2BE4049F00C5B645 /* Application */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -208,8 +232,8 @@
 			isa = PBXGroup;
 			children = (
 				0F41A1E22BC6FC65007FD327 /* DashboardView.swift */,
-				0F41A1E42BC751D6007FD327 /* ApplicationCardView.swift */,
-				0FD3DC2B2BE54C2400B5CA30 /* CalendarView.swift */,
+				0F59E79B2C45EE1F00B5D1C2 /* Calendar */,
+				0F59E79A2C45EE1800B5D1C2 /* Applications */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -217,10 +241,10 @@
 		0F7733BD2BE4049F00C5B645 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				0F59E79C2C45EEB500B5D1C2 /* Events */,
 				0FDCB4CF2BB47C7F00423576 /* AddNewApplicationView.swift */,
 				0F7E8D662BD7174C00138849 /* EditApplicationView.swift */,
 				0FDCB4D12BB4C8C900423576 /* ApplicationDetailsView.swift */,
-				0F5581172BD06AC200BC011F /* UpcomingInterviewCardView.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
