@@ -18,18 +18,20 @@ Applied is an iOS application built with Swift, SwiftUI, and Core Data to help u
 
 <table>
   <tr>
-    <td colspan="2"><strong>Light Mode</strong></td>
+    <td colspan="5"><strong>Light Mode</strong></td>
   </tr>
   <tr>
+    <td><img src="sc/light-intro.png" alt="App Screenshot" width="200"></td>
     <td><img src="sc/light-dashboard.png" alt="App Screenshot" width="200"></td>
     <td><img src="sc/light-add.png" alt="App Screenshot" width="200"></td>
     <td><img src="sc/light-details.png" alt="App Screenshot" width="200"></td>
     <td><img src="sc/light-event.png" alt="App Screenshot" width="200"></td>
   </tr>
   <tr>
-    <td colspan="2"><strong>Dark Mode</strong></td>
+    <td colspan="5"><strong>Dark Mode</strong></td>
   </tr>
   <tr>
+    <td><img src="sc/dark-intro.png" alt="App Screenshot" width="200"></td>
     <td><img src="sc/dark-dashboard.png" alt="App Screenshot" width="200"></td>
     <td><img src="sc/dark-add.png" alt="App Screenshot" width="200"></td>
     <td><img src="sc/dark-details.png" alt="App Screenshot" width="200"></td>
